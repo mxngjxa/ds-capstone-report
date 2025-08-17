@@ -1,0 +1,5 @@
+During the model selection process, several algorithms have been put under consideration to create a baseline model suitable for the current application. Using 10-fold cross validation (CV), over 34 models were trained as an initial baseline metric to compare the performance of models with their default hyperparameters. This includes methods such as Logistic Regression, Support Vector Machines (SVM), implementations of boosted trees (such as LGBM, XGBoost), Naive Bayes variations, etc. 
+
+During this process, the models with the most promising baseline results were selected including `LinearSVM`, `LogisticRegression`, and some tree-based models such as `RandomForest` and `XGBoost`. Several models such as `SVC` with the `RBF` kernel or `NuSVC` were sifted out due to the difficulty of implenetation in production. Other models such as `MultinomialBayes` were excluded due to poor baseline performance, leaving us with the three final models for further tuning: `LogisticRegression`, `LinearSVM`, and `XGBoost`. 
+
+A mixture of methods were used for efficient hyperparameter space, including `RandomSearchCV`, `GridSearchCV`, and 

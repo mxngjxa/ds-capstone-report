@@ -1,0 +1,1043 @@
+---
+title: Chinese Language Web Classification Model
+  Capstone Project Report
+author: Mingjia "Jacky" Guan
+date: "May 2025"                      # Submission date
+format:
+  pdf:
+    toc: true                           # Generate Table of Contents
+    lof: true                           # Generate List of Figures
+    lot: true                           # Generate List of Tables
+    number-sections: true               # Number section headings
+    documentclass: article              # LaTeX document class
+    classoption: titlepage              # Use a separate title page
+    pdf-engine: lualatex
+    fig-height: 8
+    fig-width: 8
+    keep-tex: true
+    include-in-header: 
+       text: |
+         \usepackage{fvextra}
+         \DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines,commandchars=\\\{\}}
+         \DefineVerbatimEnvironment{OutputCode}{Verbatim}{breaklines,commandchars=\\\{\}}
+execute: 
+  eval: false
+  warning: false
+  error: false
+bibliography: references.bib            # Path to BibTeX file
+csl: apa.csl                            # APA citation style
+---
+
+# Abstract {.unnumbered}
+<!-- Write a concise summary of your project (150–250 words). -->
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+
+**This abstract should succinctly summarize your capstone project’s goals, approach, and results.**
+
+# Acknowledgments {.unnumbered}
+<!-- Optionally, acknowledge advisors, funding sources, or others. -->
+I would like to thank Prof. X for guidance, and collaborators who provided feedback.
+
+# Introduction
+<!-- Introduce the problem context and significance. -->
+
+As the number of websites approaches 
+<!-- Insert graph on presence of digital devices. -->
+
+
+@smith2020ml says bla bla. 
+
+# Background and Related Work
+<!-- Summarize relevant research and prior work. -->
+Discuss background concepts and existing methods.
+
+Blah Blah [@knuth1984literate; @smith2020ml].
+
+# Problem Statement
+<!-- Clearly define the problem you are solving. -->
+Formulate specific research questions or problem statements.
+
+# Data Collection and Preprocessing
+<!-- Detail your dataset(s), collection, and preprocessing steps. -->
+Describe data sources and cleaning steps.
+
+## URL Scraping
+
+```{python}
+#| label: scrape-url-reduced
+#| eval: false
+"""
+Args:
+    browser: an automated browser instance (e.g., Playwright or Selenium wrapper).
+    start_url (str): URL of the first search results page.
+    topic (str): Name under which to save results.
+    max_pages (int): How many pages of results to visit.
+"""
+collected = set()
+browser.open(start_url)
+
+# Simple captcha check
+if wait_for_captcha(browser):
+    handle_captcha(browser)
+
+for _ in range(max_pages):
+    # Extract result links by a generic CSS selector
+    links = browser.find_elements(css="a.result-link")
+    collected.update(link.get_attribute("href") for link in links)
+    
+    # Find “next page” link and bail out if none
+    next_btn = browser.find_element(css="a.next-page")
+    if not next_btn:
+        break
+    
+    browser.open(next_btn.get_attribute("href"))
+    if wait_for_captcha(browser):
+        handle_captcha(browser)
+    
+    random_sleep(short=True)
+
+# Save to file
+with open(f"results/{topic}.txt", "w") as f:
+    f.write("\n".join(collected))
+```
+
+
+
+## Url Labelling with Gemini
+
+
+# Methodology
+## Model Architecture
+<!-- Describe your ML model architecture. -->
+Insert diagram: ![Model Architecture](figures/nn.png){#fig:architecture width=75%}
+
+## Training Procedure
+<!-- Describe how you trained the model. -->
+```{python}
+#| label: training-code
+#| eval: false
+for epoch in range(10):
+    train_loss = train_epoch(model, train_loader, optimizer)
+    print(f"Epoch {epoch}: loss = {train_loss:.4f}")
+```
+
+# Experiments and Results
+<!-- Describe experiments and present results. -->
+Insert plot: ![Result Plot](figures/placeholder.png){#fig:results width=75%}
+
+Example Table:
+
+| Experiment      | Accuracy (%) | F1 Score |
+|-----------------|--------------|----------|
+| Baseline        | 85           | 0.80     |
+| Proposed Model  | 90           | 0.88     |
+
+# Discussion
+<!-- Interpret the results. -->
+Summarize key findings and limitations.
+
+# Ethical Considerations
+<!-- Discuss ethical issues if any. -->
+Mention privacy, bias, societal impact.
+
+# Conclusion and Future Work
+<!-- Summarize contributions and suggest future work. -->
+
+# References {.unnumbered}
+::: {#refs}
+:::
+
+```{mermaid}
+%%{init: {'theme': 'default', 'flowchart': { 'curve': 'linear', 'nodeSpacing': 30, 'rankSpacing': 20 }}}%%
+flowchart TD
+    Start[Start] --> ProcessFile[process_file function]
+    
+    ProcessFile --> ThreadPool[Create ThreadPool]
+    ThreadPool --> ProcessURL[process_url function]
+    
+    ProcessURL --> ValidCheck{Is website valid?}
+    ValidCheck -- No --> CP5[Checkpoint 5: Invalid website]
+    CP5 --> ReturnI1[Return URL, 'i']
+    
+    ValidCheck -- Yes --> ExtractText[Extract text from website]
+    ExtractText --> ContentCheck{Content extracted?}
+    ContentCheck -- No --> CP6[Checkpoint 6: No content]
+    CP6 --> ReturnB[Return URL, 'b']
+    
+    ContentCheck -- Yes --> ClassifyWebsite[classify_website function]
+    
+    ClassifyWebsite --> TopicCheck{Topic exists in dictionary?}
+    TopicCheck -- No --> CP1[Checkpoint 1: Unknown topic]
+    CP1 --> ReturnU1[Return 'u']
+    
+    TopicCheck -- Yes --> CallAPI[Call Gemini API]
+    
+    CallAPI --> ResultCheck{API Result?}
+    ResultCheck -- Valid label --> CP2[Checkpoint 2: Valid result h/p/u]
+    CP2 --> ReturnHPU[Return 'h'/'p'/'u']
+    
+    ResultCheck -- API Error --> CP3[Checkpoint 3: API error]
+    CP3 --> ReturnA1[Return 'a']
+    
+    ResultCheck -- No valid label --> CP4[Checkpoint 4: Default case]
+    CP4 --> ReturnA2[Return 'a']
+    
+    ProcessURL --> ProcessError{Process error?}
+    ProcessError -- Yes --> CP7[Checkpoint 7: Processing error]
+    CP7 --> ReturnI2[Return URL, 'i']
+    
+    ThreadPool --> FutureCheck{Future result?}
+    FutureCheck -- Success --> CP8[Checkpoint 8: File extracting]
+    
+    FutureCheck -- Timeout --> CP9[Checkpoint 9: Timeout]
+    CP9 --> ReturnI3[Return URL, 'i']
+    
+    FutureCheck -- Error --> CP10[Checkpoint 10: Executor error]
+    CP10 --> ReturnI4[Return URL, 'i']
+    
+    CP8 --> WriteResults[Write results to file]
+    WriteResults --> End[End Processing]
+
+```
+
+# Appendices {.unnumbered}
+<!-- Include supplementary material. -->
+
+## Libraries Used
+
+import os
+import time
+import random
+from tqdm import tqdm
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from urllib.parse import quote_plus 
+
+from app.scrape_logger import ScrapeLogger
+from app.browser import Browser, user_agents
+
+import os
+import sys
+import base64
+import requests
+from tqdm import tqdm
+import concurrent.futures
+from bs4 import BeautifulSoup
+from dotenv import load_dotenv
+from urllib.parse import urlparse
+
+from openai import OpenAI
+from google import genai
+from google.genai import types
+
+from error_logger import ErrorLogger
+from extractor import extract_text, is_valid_website
+from topics import topic_dict_small, topic_dict_medium, topic_dict_max
+
+
+## Full Code
+
+### Webscraper
+```{python}
+#| label: captcha-response
+#| eval: false
+def wait_for_captcha(browser: Browser, timeout=1) -> bool:
+    """
+    Waits for the ReCAPTCHA element to appear on the page.
+    Args:
+        browser (Browser): The Browser instance to use for scraping.
+        timeout (int): The maximum time to wait for the ReCAPTCHA element to appear.
+    """
+    try:
+        WebDriverWait(browser.browser, timeout).until(
+            EC.presence_of_element_located((By.ID, "captcha-form"))
+        )
+        input("Please manually complete the authentication, then press Enter to continue...")
+        return True
+    except:
+        return False
+```
+
+```{python}
+#| label: chromedriver-options
+#| eval: false
+def get_options(chrome_binary_path: str, enhanced_options: bool = False) -> Options:
+    """
+    Returns Chrome Options class for the browser instance with enhanced 
+    features for resource management and ReCAPTCHA avoidance.
+    """
+    
+    # Set up Chrome options
+    options = Options()
+
+    # Define the binary path for Chrome
+    options.binary_location = chrome_binary_path
+
+    if not enhanced_options:
+        return options
+    
+    # Select a random user agent
+    random_user_agent = random.choice(user_agents)
+
+    # options.add_argument("--window-size=960,640") # Set a small window size to reduce resource usage
+    # options.add_argument("--disable-notifications")  # Prevents notification promp
+
+    # Disable automation flags
+    options.add_argument("--disable-blink-features=AutomationControlled")
+    options.add_experimental_option("excludeSwitches", ["enable-automation"])
+    options.add_experimental_option("useAutomationExtension", False)
+
+    # Set the user agent to a random one
+    options.add_argument(f'user-agent={random_user_agent}')
+
+    return options
+```
+
+
+```{python}
+#| label: random-sleep
+#| eval: false
+def random_sleep(long: bool = False) -> None:
+    """
+    Sleeps for a random duration between 0.5 and 12 seconds or between 10 and 12 seconds.
+    Args:
+        long (bool): If True, sleep for a longer duration (10-12 seconds). Default is False.
+    """
+    if long:
+        time.sleep(random.uniform(10, 18))
+    else:
+        time.sleep(random.uniform(0.5, 1))
+```
+
+```{python}
+#| label: search-url-generator
+#| eval: false
+def generate_search_urls(filepath: str) -> list:
+    """
+    Reads search keywords from a text file and generates Google search URLs.
+
+    Args:
+        filepath (str): The path to the text file containing search keywords.
+
+    Returns:
+        list: A list of Google search URLs.
+    """
+    keyword_to_url = dict()
+    try:
+        with open(filepath, 'r', encoding='utf-8') as file:
+            for line in file:
+                keyword = line.strip()  # Remove newline characters at the end of lines
+                if keyword:  # Ensure the keyword is not empty
+                    encoded_keyword = quote_plus(keyword)  # URL-encode the keyword
+                    url = f'https://www.google.com.tw/search?q={encoded_keyword}'
+                    keyword_to_url[keyword] = url
+    except FileNotFoundError:
+        print(f"File not found: {filepath}")
+    return keyword_to_url
+```
+
+```{python}
+#| label: scrape-url
+#| eval: false
+def scrape_url(
+        browser: Browser, 
+        url: str, 
+        topic: str, 
+        url_index: int, 
+        max_pagiation: int = 5, 
+        pagination_xpath: str = "//td[@class=\"NKTSme\"]/a", 
+        url_xpath: str = "//a[@class=\"zReHs\"]",
+        logger: ScrapeLogger = None,
+        keyword: str = None
+        ) -> None:
+    """
+    Scrapes URLs from Google search results, handles authentication, and performs pagination.
+
+    Args:
+        browser (Browser): The Browser instance to use for scraping.
+        url (str): The Google search URL to scrape.
+        result_filename (str): The filename to save the scraped results.
+    """
+    
+    # Create empty set to store all scraped URLs
+    all_scraped_urls = set()
+    result_filename = f'result/{topic}.txt'
+    captcha_count = 0
+    captcha_triggered = False
+    
+    # Open the search URL and wait for captcha
+    browser.open_page(url)
+
+    # Wait for captcha
+    initial_captcha = wait_for_captcha(browser=browser)
+    if initial_captcha:
+            captcha_count += 1
+            captcha_triggered = True
+    
+    # Long sleep to avoid detection
+    random_sleep(long=True)
+
+    # Get links for pagiation
+    pagination_links = browser.find_elements(pagination_xpath)
+
+    # Visit each pagination URL one by one
+    for i, page_url in enumerate(pagination_links):
+    
+        # Open the pagination URL
+        browser.open_page(page_url)
+        
+        # Check for captcha
+        captcha_flag = wait_for_captcha(browser=browser)
+
+        # update captcha count and triggered status
+        if captcha_flag:
+            captcha_count += 1
+            captcha_triggered = captcha_triggered or captcha_flag
+
+        # browser.random_scroll()
+        # Extract URLs from the current page
+        random_sleep(long=False)
+        extracted_urls = browser.find_elements(url_xpath)
+        all_scraped_urls.update(extracted_urls)
+
+        if i >= max_pagiation:
+            break
+
+    browser.save_urls_to_file(all_scraped_urls, result_filename)
+    logger.log_url_scrape(
+        keyword=keyword, 
+        url_idx=url_index, 
+        captcha_present=captcha_triggered,  # Assuming captcha was handled manually
+        captcha_count=captcha_count,  # Assuming no captcha count for this URL
+        num_extracted=len(all_scraped_urls)
+    )
+```
+
+```{python}
+#| label: main-webscraper
+#| eval: false
+def main():
+    # Define the paths to ChromeDriver and Chrome binary
+    driver_path = '/opt/homebrew/bin/chromedriver'  # Replace with your ChromeDriver path
+    chrome_binary_path = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"  # For defining browser options
+
+    pagiation_xpath = "//td[@class=\"NKTSme\"]/a"
+    url_xpath = "//a[@class=\"zReHs\"]"
+    max_pagiation = 5
+    broser_reset_interval = 5
+
+    # Ask for the keyword file to scrape
+    topic = str(input("Enter the category you would like to scrape: "))
+    start_url_idx = input("Enter the starting URL index (0 for first): ")
+    start_index = int(start_url_idx) if start_url_idx.strip() else 0
+
+    # Check if the keyword file exists and define the search URL keywords
+    keyword_filepath = f'keyword/{topic}.txt'
+    if not os.path.exists(keyword_filepath):
+        print(f"File not found: {keyword_filepath}")
+        return
+
+    # Generate search URLs from the keyword file
+    search_url_dict = generate_search_urls(keyword_filepath)
+    
+    # define browser options, create browser instance, define the logger
+    options = get_options(chrome_binary_path=chrome_binary_path)
+    browser = Browser(driver_path, options)
+
+    # Create the logger instance
+    logger = ScrapeLogger(topic=topic)
+
+    for i, keyword in tqdm(
+        enumerate(search_url_dict),
+        total=len(search_url_dict),
+        desc="Scraping URLs",
+        unit="url",
+        leave=True
+    ):
+        if i < start_index:
+            continue
+
+        url = search_url_dict[keyword]
+        # Scrape URLs from the search results 
+        scrape_url(
+            browser=browser, 
+            url=url, 
+            topic=topic, 
+            url_index=i, 
+            max_pagiation=max_pagiation, 
+            pagination_xpath=pagiation_xpath, 
+            url_xpath=url_xpath, 
+            logger=logger,
+            keyword=keyword
+        )
+
+        # Random sleep to avoid detection
+        random_sleep(long=True)
+
+        if i % broser_reset_interval == (broser_reset_interval - 1):
+            # Close the browser to avoid detection
+            browser.close_browser()
+            random_sleep(long=True)
+
+            # Recreate the browser instance
+            browser = Browser(driver_path, options)
+
+    browser.close_browser()
+    logger.log_end()
+
+if __name__ == "__main__":
+    main()
+```
+
+### Website Labeler
+
+```{python}
+#| label: gemini-client
+#| eval: false
+
+# Create a global Gemini client to reuse
+client = None
+
+def initialize_client():
+    global client
+    if client is None:
+        client = genai.Client(api_key=os.environ.get("GOOGLE_API_KEY"))
+    return client
+```
+```{python}
+#| label: website-validation
+#| eval: false
+def is_valid_website(url: str = "", error_logger: ErrorLogger = None):
+    """Check if the website responds successfully."""
+    # Add scheme if missing
+    if not url.startswith(('http://', 'https://')):
+        url = 'https://' + url
+    
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+    }
+    
+    try:
+        response = requests.get(
+            url,
+            headers=headers,
+            timeout=10,
+            allow_redirects=True
+        )
+        
+        # Consider 2xx and 3xx status codes as valid
+        return 200 <= response.status_code < 400, response.status_code
+        
+    except requests.RequestException as e:
+        # Try HTTP if HTTPS failed
+        if url.startswith('https://'):
+            try:
+                http_url = 'http://' + url[8:]
+                response = requests.get(
+                    http_url,
+                    headers=headers,
+                    timeout=10,
+                    allow_redirects=True
+                )
+                if 200 <= response.status_code < 400:
+                    return True, response.status_code
+            except:
+                pass
+                
+        if error_logger:
+            error_logger.log_error("connection", url, f"Connection error: {e}")
+        return False
+```
+```{python}
+#| label: text-extractor
+#| eval: false
+def extract_text(url: str = "", error_logger: ErrorLogger = None):
+    """Extracts text content from a website."""
+    try:
+        response = requests.get(url, timeout=10)
+        if not response.encoding:
+            response.encoding = 'utf-8'
+        soup = BeautifulSoup(response.text, 'html.parser')
+
+        # Extract text from common tags
+        texts = []
+        for tag in soup.find_all(['p', 'span', 'h1', 'h2', 'h3', 'h4']):
+            texts.append(tag.get_text(separator=' ', strip=True))
+        combined_text = ' '.join(texts)
+        if combined_text:
+            return combined_text[:40000]
+
+        # Fallback: extract from the entire body
+        if soup.body:
+            text = soup.body.get_text(separator=' ', strip=True)
+            return text[:40000]
+
+    except requests.RequestException as e:
+        if error_logger:
+            error_logger.log_error("parsing", url, f"Content extraction error: {e}")
+        return None
+    except Exception as e:
+        if error_logger:
+            error_logger.log_error("parsing", url, f"HTML parsing error: {e}")
+        return None
+    return None
+```
+```{python}
+#| label: website-classifier
+#| eval: false
+def classify_website(
+    content: str, 
+    topic: str, 
+    url_type: str = "-", 
+    url: str = "", 
+    error_logger: ErrorLogger = None, 
+    host_flag: bool = False):
+    """Uses the Gemini model to classify website content."""
+
+    topics_dict = topic_dict_medium
+
+    if topic not in topics_dict:
+        if error_logger and url:
+            error_logger.log_error("configuration", url, f"Unknown topic: {topic}")
+        # print("checkpoint 1")
+        return 'u'  # Default to 'unrelated'
+
+    prompt = f"""
+    You are a specialized content classifier analyzing Chinese website content for sensitive/restricted topics with cultural awareness.
+    We are designing a website classifier for Chinese websites that is designed to filter out harmful content for children.
+
+    CLASSIFICATION TASK:
+    Determine if the website content relates to: {topics_dict.get(topic)}
+
+    INSTRUCTIONS:
+    - Analyze entire content structure including titles, headings, links, body text, and metadata
+    - Identify both explicit mentions and implicit references using:
+        - Contextual semantic relationships between phrases
+        - Cultural-specific phrasing patterns in Simplified/Traditional Chinese
+    - Consider the website's overall theme and purpose
+    - Flag content that attempts to disguise topics through:
+        - Mixed neutral/harmful phrasing
+        - Obfuscated terminology
+        - Cultural context switching
+    
+    CAUTIONS:
+    - Avoid keyword over-reliance - analyze full contextual meaning
+    - Mark ambiguous cases as "u" (unrellated) if not clear
+
+    - Also mark the following as "u":
+        - Non-Chinese content (Japanese, Korean, English etc.)
+            - Note that Japanese will have Kanji that are Chinese 
+            characters, but the website is in fact Japanese
+        - Pages that focus on non-text content (websites such as youtube, tiktok, etc.)
+
+    RESPONSE FORMAT AND CRITERIA:
+    - "{url_type}" ONLY if ≥70% confidence based on contextual evidence
+    - "u" for neutral content, unrelated cases, or insufficient evidence
+
+    WEBSITE CONTENT:
+    {content}
+    """
+
+    host_additional_instructions = """
+    ADDITIONAL INSTRUCTIONS FOR HOSTS:
+    Mark the folllowing websites as "u" (unrelated)
+    - General information websites such as 
+        - News outlet homepages
+        - Genearic Health websites
+        - Lawyer pages 
+    """
+
+    if host_flag:
+        prompt += host_additional_instructions
+
+    # Initialize the client
+    client = initialize_client()
+
+    # Define the model 
+    model = "gemini-2.0-flash"
+
+    # Generate content to feed to the model
+    contents = [
+        types.Content(
+            role="user",
+            parts=[
+                types.Part.from_text(text=prompt),
+            ],
+        ),
+    ]
+
+    # Define the configuration for the model
+    generate_content_config = types.GenerateContentConfig(
+        temperature=0.1,
+        max_output_tokens=1,
+        response_mime_type="text/plain",
+    )
+
+    # Feed into the model and request a response
+    try:
+        for chunk in client.models.generate_content_stream(
+            model=model,
+            contents=contents,
+            config=generate_content_config,
+        ):
+            # Decode the response
+            result = chunk.text.strip().lower()
+
+            # Check if the result is one of the expected labels
+            # h for host, p for page, u for unrelated
+            if result in ['h', 'u', 'p']:
+                # print(f"checkpoint 2, result: {result}")
+                return result
+
+    except Exception as e:
+        if error_logger and url:
+            error_logger.log_error("api", url, f"Gemini API error: {e}")
+        # print(f"checkpoint 3, error: {e}")
+        return 'a'  # Default to 'a' in case of an AI related error
+```
+```{python}
+#| label: process-url
+#| eval: false
+def process_url(
+    url: str = "", 
+    topic: str = "", 
+    url_type: str = "-", 
+    error_logger: ErrorLogger = None,
+    host_flag: bool = False
+        ):
+    """Process a single URL and return the result."""
+    # Ensure the URL has a valid scheme
+    parsed_url = urlparse(url)
+    if not parsed_url.scheme:
+        url = f"http://{url}"
+    
+    try:
+        if not is_valid_website(
+            url=url, 
+            error_logger=error_logger
+            ):
+            # print("checkpoint 5, invalid website")
+            return url, 'i' # Invalid website, return 'i'
+
+        else: # try to extract content
+            content = extract_text(
+                url=url,
+                error_logger=error_logger
+            )
+            if content: # if content is extracted
+                label = classify_website(
+                    content=content,
+                    topic=topic,
+                    url_type=url_type,
+                    url=url,
+                    error_logger=error_logger,
+                    host_flag=host_flag
+                )
+            else: # If no content is extracted
+                # print("checkpoint 6, no content")
+                label = 'b'
+        return url, label
+
+    except Exception as e:
+        error_logger.log_error("processing", url, f"Unexpected error: {e}")
+        # print("checkpoint 7, error: ", e)
+        return url, 'i'
+```
+```{python}
+#| label: process-file
+#| eval: false
+def process_file(
+    input_filename: str = "", 
+    output_directory: str = "results",
+    url_type: str = "-", 
+    error_logger: ErrorLogger = None, 
+    host_flag: bool = False, 
+    max_workers: int = 50
+        ):
+    """
+    Processes an input TXT file where each line is a URL.
+    Uses ThreadPoolExecutor for parallel processing.
+    """
+
+    if not host_flag:
+        input_file = os.path.join("raw/urls", input_filename)
+    else:
+        input_file = os.path.join("raw/hosts", input_filename)
+    
+    # Read URLs from file
+    with open(input_file, 'r', encoding='utf-8') as f:
+        urls = [line.strip() for line in f if line.strip()]
+    
+    # Initialize results list
+    results = []
+    
+    # Use a ThreadPoolExecutor for parallel processing
+    with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers) as executor:
+        # Submit all tasks and create a mapping of futures to URLs
+        future_to_url = {executor.submit(process_url, url, topic, url_type, error_logger, host_flag): url for url in urls}
+        
+        # Process results as they complete
+        for future in tqdm(
+            concurrent.futures.as_completed(future_to_url),
+            total=len(urls),
+            desc="Processing URLs",
+            unit="url"
+        ):
+            url = future_to_url[future]
+
+            try:
+                result = future.result(timeout=60)
+                results.append(result)
+                # print("checkpoint 8, file extracting")
+
+            except concurrent.futures.TimeoutError: # Time out
+                error_logger.log_error("timeout", url, "Task timed out")
+                # print("checkpoint 9, timeout")
+                results.append((url, 'i'))
+
+            except Exception as e: # Execution error
+                error_logger.log_error("executor", url, f"Task execution error: {e}")
+                # print("checkpoint 10, executor error")
+                results.append((url, 'i'))
+    
+    # Write results to an output file
+    output_filename = os.path.splitext(input_filename)[0] + "_labeled.txt"
+    output_file = os.path.join(output_directory, output_filename)
+
+    with open(output_file, 'w', encoding='utf-8') as f:
+        for url, label in results:
+            f.write(f"{url} {label}\n")
+
+    print(f"Results written to {output_file}")
+    
+    # Write error summary
+    error_logger.write_log()
+```
+```{python}
+#| label: main-block-website-labeler
+#| eval: false
+if __name__ == '__main__':
+    configure()
+    if len(sys.argv) < 3:
+        print("Usage: python script.py <input_file.txt> <url_type: h/p> [max_workers]")
+        sys.exit(1)
+    
+    input_filename = sys.argv[1]
+    url_type = sys.argv[2]
+    max_workers = int(sys.argv[3]) if len(sys.argv) > 3 else 20
+
+    # Define flag for hosts
+    host_flag = True if url_type == 'h' else False
+
+    # Derive topic from the input file name
+    topic = os.path.splitext(os.path.basename(input_filename))[0]
+
+    # Initialize the error logger
+    error_logger = ErrorLogger(
+        topic=topic,
+        target_directory="logs",
+        )
+
+    process_file(
+        input_filename=input_filename,
+        url_type=url_type,
+        error_logger=error_logger,
+        host_flag=host_flag,
+        max_workers=max_workers
+        )
+    
+    print("Processing complete.")
+
+```
+
+### Domain Extractor
+```{python}
+#| label: domain-extractor
+#| eval: false
+"""
+This script extracts unique domain names from a list of URLs.
+
+Usage:
+    python extract_domain.py [options] [urls...]
+
+Options:
+    -o, --output <filename>   Specify the output file name (default: domains.txt).
+    -s, --standard            Use the standard library for domain extraction instead of tldextract.
+    -v, --verbose             Print details during processing (e.g., show each URL and its extracted domain).
+    [urls...]                 Provide URLs as arguments. If not provided, the script reads URLs from standard input (stdin).
+
+Examples:
+1. Extract domains from a list of URLs provided as arguments:
+    python extract_domain.py -o output.txt -v https://example.com https://sub.example.org
+    - Extracts domains from the provided URLs.
+    - Saves the unique domains to output.txt.
+    - Prints details of the extraction process.
+
+2. Extract domains from a file of URLs:
+    cat urls.txt | python extract_domain.py -o domains.txt
+    - Reads URLs from urls.txt.
+    - Extracts unique domains and saves them to domains.txt.
+
+3. Use the standard library for domain extraction:
+    python extract_domain.py -s -o domains.txt https://example.com https://sub.example.org
+    - Uses the standard library (urlparse) instead of tldextract.
+
+4. Verbose output for debugging:
+    python extract_domain.py -v https://example.com https://sub.example.org
+    - Prints each URL and its extracted domain during processing.
+
+Dependencies:
+- If using tldextract, ensure it is installed:
+    pip install tldextract
+
+Output:
+- The script saves the unique domains to the specified output file (default: domains.txt).
+- Each domain is written on a new line.
+"""
+
+import sys
+import os
+from urllib.parse import urlparse
+import argparse
+
+# Option 1: Using standard library (works without additional packages)
+def extract_host_standard(url):
+    """Extract the hostname from a URL using standard library"""
+    parsed_url = urlparse(url)
+    return parsed_url.netloc
+
+# Option 2: Using tldextract (more accurate, requires installation)
+def extract_root_domain_tldextract(url):
+    """Extract the root domain from a URL using tldextract"""
+    try:
+        import tldextract
+        ext = tldextract.extract(url)
+        # Return domain + suffix (e.g., example.com)
+        return f"{ext.domain}.{ext.suffix}" if ext.suffix else ext.domain
+    except ImportError:
+        print("tldextract not installed. Install with: pip install tldextract", file=sys.stderr)
+        # Fall back to standard method
+        return extract_host_standard(url)
+
+def process_urls(urls, use_tldextract=True, verbose=False):
+    """Process a list of URLs and extract their root domains"""
+    extract_func = extract_root_domain_tldextract if use_tldextract else extract_host_standard
+    
+    unique_domains = set()
+    for url in urls:
+        url = url.strip()
+        if url:
+            domain = extract_func(url)
+            unique_domains.add(domain)
+            if verbose:
+                print(f"{url} -> {domain}")
+    
+    return unique_domains
+
+def save_domains_to_file(domains, output_file):
+    """Save the unique domains to a text file"""
+    with open(output_file, 'w') as f:
+        for domain in sorted(domains):
+            f.write(f"{domain}\n")
+    print(f"Saved {len(domains)} unique domains to {output_file}")
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description='Extract unique domain names from URLs')
+    parser.add_argument('-o', '--output', default='domains.txt', help='Output file name')
+    parser.add_argument('-s', '--standard', action='store_true', help='Use standard library instead of tldextract')
+    parser.add_argument('-v', '--verbose', action='store_true', help='Print details during processing')
+    parser.add_argument('urls', nargs='*', help='URLs to process (if not provided, read from stdin)')
+    
+    args = parser.parse_args()
+    
+    # Get URLs from arguments or stdin
+    if args.urls:
+        urls = args.urls
+    else:
+        urls = [line.strip() for line in sys.stdin if line.strip()]
+    
+    # Process URLs to get unique domains
+    unique_domains = process_urls(urls, not args.standard, args.verbose)
+    
+    # Save to file
+    save_domains_to_file(unique_domains, args.output)
+```
+
+## Topic Definitions
+毒品
+```{json}
+#| label: topic-definitions-medium
+{
+    "drugs": "Illegal, recreational, or psychedelic drugs content, including drug abuse, trafficking, production methods, consumption guides, paraphernalia, or glorification of drug use. Includes narcotics, stimulants, marijuana, opioids, and related substances. In Chinese context: 毒品, 大麻, 冰毒, 海洛因, etc.",
+    
+    "tobacco": "Tobacco and nicotine products content, including cigarettes, vaping, e-cigarettes, marketing of tobacco products, or promotion of smoking/vaping. In Chinese context: 香烟, 电子烟, 吸烟, 尼古丁, etc.",
+    
+    "weapon": "Content related to firearms, explosives, knives, or other weapons including sales, manufacturing, modification, or use instructions. Includes combat techniques, ammunition, and weapon accessories. In Chinese context: 武器, 枪支, 刀具, 爆炸物, etc.",
+    
+    "abortion": "Content related to pregnancy termination, including procedures, debates, advocacy, clinics, or self-induced methods. Do not include the following topics: Miscarriages, Planned Parenthood, Postpartum Care (especially related to meals). In Chinese context: 堕胎, 人工流产, 终止妊娠, etc.",
+
+    "gambling": "Content related to betting, casinos, lotteries, sports gambling, online gambling platforms, or gambling strategies. Includes poker, slots, and other games of chance for money. In Chinese context: 赌博, 博彩, 彩票, 赌场, 投注, etc.",
+    
+    "selfharm": "Content discussing, depicting, or promoting self-injury, suicidal ideation, eating disorders, or other self-destructive behaviors. In Chinese context: 自残, 自伤, 自杀, 厌食症, etc."
+}
+```
+
+## Figures
+
+
+```{r}
+#| eval: true
+#| label: smartphone-usage
+# Load libraries
+library(tidyverse)
+
+# Create the dataset
+device_access <- data.frame(
+  Device = c("Smartphone", "Computer", "Gaming Console", "Tablet", 
+             "Smartphone", "Computer", "Gaming Console", "Tablet"),
+  Age_Group = c("13–17", "13–17", "13–17", "13–17", "15–17", "15–17", "15–17", "15–17"),
+  Access_Percent = c(95, 88, 83, 70, 98, 91, 83, 70)
+)
+
+# Factor for ordered plotting
+device_access$Device <- factor(device_access$Device,
+                               levels = rev(c("Smartphone", "Computer", "Gaming Console", "Tablet")))
+
+# Plot
+ggplot(device_access, aes(x = Access_Percent, y = Device, fill = Age_Group)) +
+  geom_col(position = position_dodge(width = 0.7), width = 0.6) +
+  geom_text(
+    aes(label = paste0(Access_Percent, "%")),
+    position = position_dodge(width = 0.7),
+    hjust = -0.1,
+    size = 4,
+    color = "black"
+  ) +
+  scale_fill_manual(values = c("13–17" = "#4E79A7", "15–17" = "#F28E2B")) +
+  scale_x_continuous(limits = c(0, 105), expand = expansion(mult = c(0, 0.05))) +
+  labs(
+    title = "Device Access Among U.S. Teens (2024)",
+    subtitle = "Access to various technologies by age group (13–17 vs. 15–17)",
+    x = "Access (%)",
+    y = NULL,
+    fill = "Age Group",
+    caption = "Source: Pew Research Center, 2024\nhttps://www.pewresearch.org/internet/2024/12/12/teens-social-media-and-technology-2024/"
+  ) +
+  theme_minimal(base_size = 13) +
+  theme(
+    legend.position = "bottom",
+    plot.title = element_text(face = "bold", size = 16),
+    plot.subtitle = element_text(size = 12),
+    plot.caption = element_text(size = 8),
+    axis.text.y = element_text(face = "bold")
+  )
+
+
+```
+
+## Used Terms and their Definitions
+
