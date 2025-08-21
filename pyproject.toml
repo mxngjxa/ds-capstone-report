@@ -1,0 +1,12 @@
+[project]
+name = "ds-capstone-project"
+version = "0.1.0"
+description = "A capstone project for classifying Chinese language websites."
+authors = [
+    { name = "Mingjia 'Jacky' Guan" }
+]
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "jupyter>=1.1.1",
+]

@@ -500,11 +500,15 @@ Additionally, 2’400 features were extracted from the white category using the 
 
 During the process of topic modelling using Latent Dirichlet Allocation (LDA), it was discovered that some topics and datapoints separated themselves quite well after applying LDA such as Alcohol (Red), Games (Purple), and Gambling (light pink). 
 
-![30 topics and T-SNE using `pca`](figures/placeholder.png)
 
-![75 topics and T-SNE using `pca`](figures/placeholder.png)
+<!-- ![30 topics and T-SNE using `pca`. ](figures/placeholder.png)
 
-![150 topics and T-SNE using `pca`](figures/placeholder.png)
+
+![75 topics and T-SNE using `pca`. ](figures/placeholder.png)
+
+
+![150 topics and T-SNE using `pca`. ](figures/placeholder.png) -->
+
 
 ![Excerpt #1 from LDA with 150 topics, with noticeable confusion clusters between lgbt (dark green), selfharm (grey), drugs (orange), gambling (salmon), adult (pink), and lingerie (light pink) after t-SNE projection.](figures/placeholder.png)
 
@@ -799,7 +803,6 @@ While the enhanced CWCM model represents significant theoretical and practical i
 The broader implications of this research extend beyond technical achievement to address fundamental challenges in educational technology deployment, digital safety, and ethical AI implementation in sensitive environments. By providing an effective, deployable solution for Chinese content filtering that balances accuracy, computational efficiency, and practical implementation requirements, this work contributes meaningfully to protecting digital learning environments while maintaining educational accessibility and intellectual freedom. The established methodology and findings provide a replicable framework for content classification systems in diverse linguistic and cultural contexts, supporting the global expansion of effective educational technology solutions.
 
 
-# References {.unnumbered}
 
 
 # Appendices {.unnumbered}
@@ -841,3 +844,4 @@ from extractor import extract_text, is_valid_website
 from topics import topic_dict_small, topic_dict_medium, topic_dict_max
 
 
+# References {.unnumbered}
