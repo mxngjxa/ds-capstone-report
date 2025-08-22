@@ -10,7 +10,7 @@
   <meta name="generator" content="quarto-1.7.33">
 
   <meta name="author" content="Mingjia ‘Jacky’ Guan">
-  <meta name="dcterms.date" content="2025-08-21">
+  <meta name="dcterms.date" content="2025-08-22">
   <title>Chinese Language Web Classification Model</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -190,9 +190,6 @@
       margin-right: 0; 
     }
   </style>
-  <script src="presentation_files/libs/quarto-diagram/mermaid.min.js"></script>
-  <script src="presentation_files/libs/quarto-diagram/mermaid-init.js"></script>
-  <link href="presentation_files/libs/quarto-diagram/mermaid.css" rel="stylesheet">
 </head>
 <body class="quarto-light">
   <div class="reveal">
@@ -210,7 +207,7 @@ Mingjia ‘Jacky’ Guan
 </div>
 </div>
 
-  <p class="date">2025-08-21</p>
+  <p class="date">2025-08-22</p>
 </section>
 <section>
 <section id="introduction" class="title-slide slide level1 center" data-background-color="#1e3a8a">
@@ -235,7 +232,7 @@ Mingjia ‘Jacky’ Guan
 <li>Negative impact on academic performance and cognitive development</li>
 </ul>
 </div><div class="column" style="width:40%;">
-<div class="cell" data-reveal="true" data-layout-align="default">
+<div class="cell" data-layout-align="default">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb1-1"><a href="" aria-hidden="true" tabindex="-1"></a>graph TD</span>
 <span id="cb1-2"><a href="" aria-hidden="true" tabindex="-1"></a>    A[Digital Education Growth] --&gt; B[Student Distraction]</span>
 <span id="cb1-3"><a href="" aria-hidden="true" tabindex="-1"></a>    B --&gt; C[Academic Performance Decline]</span>
@@ -296,7 +293,7 @@ Mingjia ‘Jacky’ Guan
 </section>
 <section id="machine-learning-evolution-in-nlp" class="slide level2">
 <h2>Machine Learning Evolution in NLP</h2>
-<div class="cell" data-reveal="true" data-layout-align="default">
+<div class="cell" data-layout-align="default">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb3-1"><a href="" aria-hidden="true" tabindex="-1"></a>timeline</span>
 <span id="cb3-2"><a href="" aria-hidden="true" tabindex="-1"></a>    title ML Approaches for Text Classification</span>
 <span id="cb3-3"><a href="" aria-hidden="true" tabindex="-1"></a>    2000s : Traditional ML</span>
@@ -481,7 +478,7 @@ Mingjia ‘Jacky’ Guan
 </section>
 <section id="text-processing-pipeline" class="slide level2">
 <h2>Text Processing Pipeline</h2>
-<div class="cell" data-reveal="true" data-layout-align="default">
+<div class="cell" data-layout-align="default">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb4-1"><a href="" aria-hidden="true" tabindex="-1"></a>flowchart LR</span>
 <span id="cb4-2"><a href="" aria-hidden="true" tabindex="-1"></a>    A[Raw HTML] --&gt; B[Text Extraction]</span>
 <span id="cb4-3"><a href="" aria-hidden="true" tabindex="-1"></a>    B --&gt; C[Jieba Segmentation]</span>
@@ -743,7 +740,7 @@ Mingjia ‘Jacky’ Guan
 </ul>
 <p><strong>Key Insight</strong>: Strong evidence that larger datasets improve performance, especially for recall metrics.</p>
 </div><div class="column" style="width:40%;">
-<div class="cell" data-reveal="true" data-layout-align="default">
+<div class="cell" data-layout-align="default">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb7-1"><a href="" aria-hidden="true" tabindex="-1"></a>scatterplot:</span>
 <span id="cb7-2"><a href="" aria-hidden="true" tabindex="-1"></a>    title "F1 Score vs Dataset Size"</span>
 <span id="cb7-3"><a href="" aria-hidden="true" tabindex="-1"></a>    x-axis [Log Sample Size] 5 --&gt; 10</span>
@@ -819,7 +816,7 @@ Mingjia ‘Jacky’ Guan
 <section id="production-considerations" class="slide level2">
 <h2>Production Considerations</h2>
 <h3 id="deployment-architecture">Deployment Architecture</h3>
-<div class="cell" data-reveal="true" data-layout-align="default">
+<div class="cell" data-layout-align="default">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb9-1"><a href="" aria-hidden="true" tabindex="-1"></a>graph LR</span>
 <span id="cb9-2"><a href="" aria-hidden="true" tabindex="-1"></a>    A[Student Device] --&gt; B[Chrome Extension]</span>
 <span id="cb9-3"><a href="" aria-hidden="true" tabindex="-1"></a>    B --&gt; C[CWCM Model]</span>
@@ -916,7 +913,7 @@ Mingjia ‘Jacky’ Guan
 <li><strong>Phase 4</strong>: Performance optimization</li>
 </ol>
 </div><div class="column" style="width:40%;">
-<div class="cell" data-reveal="true" data-layout-align="default">
+<div class="cell" data-layout-align="default">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb10-1"><a href="" aria-hidden="true" tabindex="-1"></a>graph TD</span>
 <span id="cb10-2"><a href="" aria-hidden="true" tabindex="-1"></a>    A[Web Content] --&gt; B[CWCM Layer 1]</span>
 <span id="cb10-3"><a href="" aria-hidden="true" tabindex="-1"></a>    B --&gt; C{High Confidence?}</span>
