@@ -1,0 +1,703 @@
+---
+title: "Chinese Language Web Classification Model"
+subtitle: "Enhanced Content Filtering for Educational Technology"
+author: "Mingjia 'Jacky' Guan"
+date: "August 21, 2025"
+format: 
+  revealjs:
+    theme: [default, custom.scss]
+    slide-number: true
+    chalkboard: true
+    preview-links: auto
+    logo: logo.png
+    footer: "CWCM Capstone Project | August 2025"
+    transition: slide
+    background-transition: fade
+    highlight-style: github
+    code-line-numbers: false
+execute:
+  echo: true
+  eval: false
+---
+
+# Introduction {background-color="#1e3a8a"}
+
+## The Digital Education Challenge
+
+:::: {.columns}
+
+::: {.column width="60%"}
+### Current State
+- **>50%** of lower-secondary classrooms now digitally connected
+- **3:2** student-to-computer ratio (2022)
+- **85%** of OECD countries promoting digital strategies
+- **>1 billion** students adopted digital learning (COVID-19)
+
+### The Problem
+- **30%** of students distracted by devices in math lessons
+- **80%** of students multitask on electronic devices while studying
+- Negative impact on academic performance and cognitive development
+:::
+
+::: {.column width="40%"}
+```{mermaid}
+graph TD
+    A[Digital Education Growth] --> B[Student Distraction]
+    B --> C[Academic Performance Decline]
+    C --> D[Need for Content Filtering]
+    D --> E[CWCM Solution]
+    
+    style A fill:#e1f5fe
+    style E fill:#c8e6c9
+```
+:::
+
+::::
+
+## Legacy Filtering Limitations
+
+:::: {.columns}
+
+::: {.column width="50%"}
+### Traditional Methods
+- **URL Filtering**: Block/allow lists
+- **DNS Filtering**: Domain-level blocking  
+- **Proxy Filtering**: Intermediary servers
+
+### Critical Weaknesses
+- Limited granularity (domain-level only)
+- Easy circumvention (VPNs, proxies)
+- Binary approach (all or nothing)
+- No contextual understanding
+:::
+
+::: {.column width="50%"}
+### Example Challenge
+Same domain, different content:
+
+```yaml
+news-website.com:
+  - /education/science-breakthrough ✅
+  - /entertainment/inappropriate ❌  
+  - /health/wellness-tips ✅
+  - /adult-content ❌
+```
+
+**Traditional filters**: All or nothing  
+**CWCM**: Content-aware decisions
+:::
+
+::::
+
+---
+
+# Background & Related Work {background-color="#059669"}
+
+## Machine Learning Evolution in NLP
+
+```{mermaid}
+timeline
+    title ML Approaches for Text Classification
+    2000s : Traditional ML
+           : Logistic Regression
+           : Support Vector Machines
+           : Naive Bayes
+    2010s : Advanced ML
+           : Random Forest
+           : XGBoost
+           : LightGBM
+    2015s : Deep Learning
+           : RNN/LSTM
+           : Word2Vec
+           : GloVe
+    2017+ : Transformer Era
+           : BERT
+           : RoBERTa
+           : DistilBERT
+```
+
+## Model Comparison Framework
+
+| **Approach** | **Advantages** | **Limitations** | **Deployment** |
+|--------------|----------------|-----------------|----------------|
+| **Logistic Regression** | Fast inference, interpretable | Linear boundaries | ✅ Client-side |
+| **LinearSVC** | High-dimensional performance | No probabilities | ✅ Client-side |
+| **XGBoost** | Non-linear patterns | Resource intensive | ❌ Server-only |
+| **BERT** | Contextual understanding | Computational cost | ❌ Server-only |
+
+---
+
+# Problem Statement {background-color="#dc2626"}
+
+## Current CWCM Limitations
+
+:::: {.columns}
+
+::: {.column width="60%"}
+### Performance Issues
+- Poor detection of subtle harmful content
+- Fails on searches like "I want to eat heroin"
+- Limited contextual understanding
+- Outdated training data
+
+### Technical Constraints  
+- **Must maintain**: Real-time inference
+- **Must maintain**: Resource efficiency
+- **Must work**: On school Chromebooks
+- **Must support**: Dual-language deployment
+:::
+
+::: {.column width="40%"}
+### Target Categories
+
+**Harmful** 🚫
+- Drugs
+- Tobacco  
+- Weapons
+- Adult Content
+- Violence
+- Self-harm
+
+**Safe** ✅
+- Education
+- News
+- Science
+- Arts
+:::
+
+::::
+
+## Project Objectives
+
+::: {.incremental}
+1. **Enhance existing CWCM** with expanded dataset
+2. **Improve accuracy** for Drugs, Tobacco, Weapons detection  
+3. **Maintain deployment constraints** (client-side, real-time)
+4. **Prepare foundation** for CWCM-V2 transformer integration
+5. **Statistical validation** of improvements
+:::
+
+---
+
+# Methodology {background-color="#7c3aed"}
+
+## Data Collection Strategy
+
+:::: {.columns}
+
+::: {.column width="50%"}
+### Phase 1: Data Audit
+- Relabeled existing URLs (P/H/U/I)
+- Identified 6 categories with insufficient data
+- Quality assessment using Gemini 2.5-Flash
+
+### Phase 2: Automated Collection  
+- Selenium-based Google search crawler
+- Keyword permutation strategy
+- Random timing to avoid CAPTCHAs
+- Domain extraction for host identification
+:::
+
+::: {.column width="50%"}
+### Collection Results
+
+| Category | New URLs |
+|----------|----------|
+| Abortion | 14,056 |
+| Drugs | 4,600 |
+| Gambling | 4,287 |
+| Self-harm | 4,859 |
+| Tobacco | 2,248 |
+| Weapons | 2,482 |
+
+**Final Dataset**: 429,066 datapoints (76.1% harmless)
+:::
+
+::::
+
+## Text Processing Pipeline
+
+```{mermaid}
+flowchart LR
+    A[Raw HTML] --> B[Text Extraction]
+    B --> C[Jieba Segmentation]
+    C --> D[Custom Dictionary]
+    D --> E[TF-IDF Vectorization]
+    E --> F[Feature Selection]
+    F --> G[Model Training]
+    
+    C --> H[dict.txt.big<br/>Traditional + Simplified]
+    D --> I[TextRank + TF-IDF<br/>Top 200 per category]
+    
+    style A fill:#ffebee
+    style G fill:#e8f5e8
+```
+
+## Feature Engineering
+
+:::: {.columns}
+
+::: {.column width="50%"}
+### Dictionary Construction
+- **TextRank**: Top 200 features per category
+- **TF-IDF**: Top 200 features per category  
+- **Jaccard Similarity**: ~0.27 between methods
+- **Final Dictionary**: 4,783 features
+
+### Custom Preprocessing
+- Chinese phrase-based segmentation
+- Stopword removal
+- Standardization pipeline
+- Category-specific weighting
+:::
+
+::: {.column width="50%"}
+```python
+# Feature Extraction Example
+def extract_features(text, category):
+    # Jieba segmentation
+    words = jieba.cut_for_search(text)
+    
+    # Custom dictionary filtering
+    filtered_words = filter_by_dict(words)
+    
+    # TF-IDF transformation
+    tfidf_vector = vectorizer.transform([text])
+    
+    return tfidf_vector
+```
+:::
+
+::::
+
+---
+
+# Model Training {background-color="#ea580c"}
+
+## Comprehensive Algorithm Evaluation
+
+### Initial Screening: 34+ Algorithms
+
+:::: {.columns}
+
+::: {.column width="60%"}
+**Linear Methods**
+- Logistic Regression
+- LinearSVC, PassiveAggressive  
+- Perceptron, SGD Classifier
+
+**Tree-based Methods**  
+- XGBoost, LightGBM
+- Random Forest, Extra Trees
+
+**Others**
+- Naive Bayes variants
+- Neural Networks (MLP)
+- SVM with RBF kernel
+:::
+
+::: {.column width="40%"}
+**Evaluation Protocol**
+- 10-fold cross-validation
+- Macro-averaged F1-score
+- Statistical significance testing
+- Deployment feasibility assessment
+:::
+
+::::
+
+## Top Model Performance
+
+| **Model** | **Accuracy** | **Macro F1** | **Deployment** |
+|-----------|--------------|--------------|----------------|
+| **Logistic Regression** ⭐ | 0.984 | **0.910** | ✅ Client-side |
+| PassiveAggressive | **0.986** | 0.907 | ✅ Client-side |
+| XGBoost | 0.985 | 0.905 | ❌ Resource heavy |
+| LinearSVC | 0.983 | 0.879 | ✅ Client-side |
+
+**Winner**: Logistic Regression (best macro F1 + explainability)
+
+## Hyperparameter Optimization
+
+:::: {.columns}
+
+::: {.column width="50%"}
+### Search Strategy
+- **RandomSearchCV**: Initial exploration
+- **GridSearchCV**: Fine-tuning
+- **BayesSearchCV**: Optimization
+- **Custom weights**: Class imbalance handling
+
+### Final Configuration
+```python
+LogisticRegression(
+    C=220.77,           # Regularization
+    penalty='l2',       # Ridge regularization  
+    multi_class='multinomial',
+    solver='saga',      # Scalability
+    max_iter=154       # Early convergence
+)
+```
+:::
+
+::: {.column width="50%"}
+### Performance Evolution
+
+| Version | F1-Macro | Key Changes |
+|---------|----------|-------------|
+| V0 | 0.806 | Baseline |
+| V2/V3 | 0.896 | High recall optimization |
+| V4.4 | 0.904 | Data cleaning |  
+| **V5** | **0.918** | Balanced optimization |
+
+**V5**: Production model with optimal precision-recall balance
+:::
+
+::::
+
+---
+
+# Results {background-color="#0891b2"}
+
+## Statistical Performance Validation
+
+:::: {.columns}
+
+::: {.column width="50%"}
+### Logistic Regression vs Baselines
+
+**vs XGBoost** (n=130)
+- Mean F1: 0.9155 vs 0.9183
+- t-statistic: -7.60  
+- p-value: < 0.000001 ⭐
+- Cohen's d: -0.67 (medium effect)
+
+**vs LinearSVC** (n=66)  
+- Mean F1: 0.9059 vs 0.9183
+- t-statistic: -9.05
+- p-value: < 0.000001 ⭐  
+- Cohen's d: -1.11 (large effect)
+:::
+
+::: {.column width="50%"}
+### Performance by Category
+
+| **Category** | **F1** | **Support** |
+|--------------|--------|-------------|
+| Alcohol | 0.997 | 1,441 |
+| Tobacco | 0.992 | 504 |
+| Adult | 0.967 | 594 |
+| Games | 0.986 | 702 |
+| Violence | 0.863 | 273 |
+| Drugs | 0.871 | 247 |
+| Self-harm | 0.903 | 81 |
+| **Macro Avg** | **0.918** | - |
+:::
+
+::::
+
+## Dataset Size Impact Analysis
+
+:::: {.columns}
+
+::: {.column width="60%"}
+### Correlation Findings
+- **F1 vs log(sample size)**: ρ = 0.687, p = 0.0095 ⭐
+- **Recall vs log(sample size)**: ρ = 0.698, p = 0.008 ⭐  
+- **Precision vs log(sample size)**: ρ = 0.550, p = 0.052
+
+**Key Insight**: Strong evidence that larger datasets improve performance, especially for recall metrics.
+:::
+
+::: {.column width="40%"}
+```{mermaid}
+scatterplot:
+    title "F1 Score vs Dataset Size"
+    x-axis [Log Sample Size] 5 --> 10
+    y-axis [F1 Score] 0.8 --> 1.0
+    
+    alcohol: [9.97, 0.997]
+    tobacco: [8.53, 0.992]  
+    adult: [9.38, 0.967]
+    games: [9.55, 0.986]
+    violence: [8.61, 0.863]
+    drugs: [8.51, 0.871]
+    selfharm: [6.40, 0.903]
+```
+:::
+
+::::
+
+## Model Architecture Insights
+
+### Why Logistic Regression Won
+
+::: {.incremental}
+1. **Deployment Efficiency**: Client-side JavaScript compatibility
+2. **Interpretability**: Clear probability outputs for threshold tuning  
+3. **Generalization**: Consistent train-test performance gaps
+4. **Statistical Rigor**: Significant outperformance of alternatives
+5. **Production Ready**: Proven stability in resource-constrained environments
+:::
+
+---
+
+# Discussion {background-color="#be123c"}
+
+## Key Technical Decisions
+
+:::: {.columns}
+
+::: {.column width="50%"}
+### Multinomial vs One-vs-Rest
+- **Chosen**: Multinomial approach
+- **Rationale**: Better empirical performance despite IIA assumption
+- **Trade-off**: Theoretical limitations vs practical gains
+
+### Linear vs Non-linear
+- **Chosen**: Linear (Logistic Regression)  
+- **Rationale**: Deployment constraints, consistency
+- **Evidence**: Non-linear models (XGBoost) showed overfitting
+:::
+
+::: {.column width="50%"}
+### Threshold Strategy
+```yaml
+Category-Specific Calibration:
+  High Precision (Games, Adult): 
+    threshold: 0.8
+  Balanced (Tobacco, Drugs):
+    threshold: 0.5  
+  High Recall (Self-harm):
+    threshold: 0.3  # Safety priority
+```
+:::
+
+::::
+
+## Production Considerations
+
+### Deployment Architecture
+
+```{mermaid}
+graph LR
+    A[Student Device] --> B[Chrome Extension]
+    B --> C[CWCM Model]
+    C --> D[JavaScript Inference]
+    D --> E[Real-time Decision]
+    
+    F[Optional: CWCM-V2] --> G[Transformer Analysis]
+    G --> H[Refined Classification]
+    
+    style A fill:#e3f2fd
+    style E fill:#c8e6c9
+    style H fill:#fff3e0
+```
+
+**Benefits**: No API costs, privacy-first, sub-100ms latency
+
+---
+
+# Ethical Considerations {background-color="#475569"}
+
+## Balancing Safety and Access
+
+:::: {.columns}
+
+::: {.column width="50%"}
+### Privacy Protection
+- **Client-side processing**: No data leaves device
+- **Zero PII collection**: Content analysis only
+- **ISO 27001 compliance**: Security standards
+- **Transparency**: Clear administrator controls
+
+### Bias Mitigation  
+- **Cultural sensitivity**: Taiwan-specific content
+- **Performance monitoring**: Category-wise analysis
+- **Threshold flexibility**: Local customization
+- **Continuous evaluation**: Real-world feedback
+:::
+
+::: {.column width="50%"}
+### Content Classification Ethics
+
+**Challenges**
+- Subjective nature of "harmful"
+- Cultural context dependency
+- Over-censorship risks
+- Educational access balance
+
+**Solutions**  
+- Administrator override capabilities
+- Category-specific tuning
+- Dual-layer architecture (CWCM + V2)
+- Regular policy review processes
+:::
+
+::::
+
+## Public Health Justification
+
+::: {.incremental}
+- **WHO warnings**: Teens, screens, and mental health
+- **U.S. Surgeon General**: Social media youth advisory  
+- **Research evidence**: Violence exposure impacts academic achievement
+- **"Brain rot"**: Digital overload cognitive impairment
+- **Educational necessity**: Curated digital environments for learning
+:::
+
+---
+
+# Future Work {background-color="#166534"}
+
+## CWCM-V2 Development
+
+:::: {.columns}
+
+::: {.column width="60%"}
+### Transformer Integration
+- **Architecture**: BERT-based secondary layer
+- **Purpose**: Contextual understanding enhancement
+- **Deployment**: High-precision refinement of CWCM decisions
+- **Target**: Complex semantic relationships
+
+### Technical Roadmap
+1. **Phase 1**: CWCM production deployment  
+2. **Phase 2**: Transformer model fine-tuning
+3. **Phase 3**: Dual-layer integration
+4. **Phase 4**: Performance optimization
+:::
+
+::: {.column width="40%"}
+```{mermaid}
+graph TD
+    A[Web Content] --> B[CWCM Layer 1]
+    B --> C{High Confidence?}
+    C -->|Yes| D[Allow/Block]
+    C -->|No| E[CWCM-V2 Layer 2]
+    E --> F[Transformer Analysis]
+    F --> G[Final Decision]
+    
+    style B fill:#fef3c7
+    style F fill:#ddd6fe
+    style D fill:#d1fae5
+    style G fill:#d1fae5
+```
+:::
+
+::::
+
+## Research Extensions
+
+### Immediate Improvements
+- **Data quality**: Clean non-Chinese entries
+- **Dataset expansion**: Systematic collection for underperforming categories
+- **Threshold optimization**: Production-based calibration
+- **Ensemble methods**: Multiple linear model combinations
+
+### Long-term Vision
+- **Multilingual support**: Beyond Traditional Chinese
+- **Multimodal analysis**: Images and video content
+- **Federated learning**: Cross-institutional knowledge sharing
+- **Predictive modeling**: Proactive content curation
+
+---
+
+# Conclusion {background-color="#1f2937"}
+
+## Key Achievements
+
+::: {.incremental}
+✅ **Enhanced dataset**: 429,066 samples with focused harmful category augmentation
+
+✅ **Statistical validation**: Significant improvements over XGBoost (p<0.000001) and LinearSVC (p<0.000001)
+
+✅ **Production-ready**: Client-side deployment architecture with sub-100ms inference
+
+✅ **Balanced performance**: F1-macro 0.918 across 13 content categories
+
+✅ **Empirical insights**: Strong correlation between dataset size and performance (ρ=0.687)
+:::
+
+## Impact and Contribution
+
+:::: {.columns}
+
+::: {.column width="50%"}
+### Educational Technology
+- Effective Chinese content filtering for K-12
+- Scalable solution for hundreds of thousands of students  
+- Privacy-first architecture
+- Real-time protection without over-censorship
+
+### Research Contribution
+- Systematic evaluation of 34+ ML algorithms for Chinese text classification
+- Statistical framework for model selection in educational contexts
+- Empirical evidence for data collection prioritization strategies
+:::
+
+::: {.column width="50%"}
+### Technical Innovation
+- Custom TF-IDF dictionary construction
+- Category-specific threshold calibration
+- Client-side transformer preparation
+- Dual-layer architecture foundation
+
+### Broader Implications  
+- Replicable framework for multilingual content filtering
+- Balance of accuracy, efficiency, and ethics
+- Foundation for next-generation educational AI systems
+:::
+
+::::
+
+---
+
+## Thank You {background-color="#064e3b"}
+
+### Questions & Discussion
+
+**Contact Information:**
+- Mingjia "Jacky" Guan
+- Senior Project - Chinese Web Classification Model
+- August 21, 2025
+
+**Key Resources:**
+- **GitHub**: Model implementation and documentation
+- **Production**: Taiwan K-12 deployment ready
+- **Future**: CWCM-V2 transformer integration
+
+---
+
+### Appendix: Technical Details {.smaller}
+
+#### Model Performance Matrix
+```python
+# Final Model Configuration
+model = LogisticRegression(
+    C=220.77,
+    penalty='l2', 
+    multi_class='multinomial',
+    solver='saga',
+    class_weight='balanced',
+    random_state=42
+)
+
+# Performance Metrics
+metrics = {
+    'f1_macro': 0.9183,
+    'precision_macro': 0.9341, 
+    'recall_macro': 0.9040,
+    'accuracy': 0.9840
+}
+```
+
+#### Feature Engineering Pipeline
+```python
+# Custom Dictionary Construction  
+def build_feature_dict():
+    textrank_features = extract_textrank_top200()
+    tfidf_features = extract_tfidf_top200() 
+    final_dict = union(textrank_features, tfidf_features)
+    return final_dict  # 4,783 total features
+```

@@ -514,15 +514,15 @@ During the process of topic modelling using Latent Dirichlet Allocation (LDA), i
 ![30 topics and T-SNE using `pca`. ](figures/6_lda_30topics.png)
 
 
-![75 topics and T-SNE using `pca`. ](figures/7_lda_75topics.png)
+<!-- ![75 topics and T-SNE using `pca`. ](figures/7_lda_75topics.png)
 
 
-![150 topics and T-SNE using `pca`. ](figures/8_lda_150topics.png)
+![150 topics and T-SNE using `pca`. ](figures/8_lda_150topics.png) -->
 
 
 ![Excerpt #1 from LDA with 150 topics, with noticeable confusion clusters between lgbt (dark green), selfharm (grey), drugs (orange), gambling (salmon), adult (pink), and lingerie (light pink) after t-SNE projection.](figures/9_1_150.png)
 
-::: {layout-ncol=2}
+::: {layout-ncol="[50,-10,50]"}
 ![Excerpt #2 from LDA with 150 topics, with noticeable confusion clusters between lgbt (dark green), alcohol (red), and selfharm (brown), as well as between games (purple) and violence (light purple) after t-SNE projection.](figures/9_2_150.png)
 
 ![Excerpt #3 from LDA with 150 topics, with noticeable confusion clusters between lgbt (dark green), adult (pink), and violence (light purple) after t-SNE projection.](figures/9_3_150.png)
@@ -707,7 +707,7 @@ Linear methods in NLP have long been the norm given the complexity of computatio
 
 As seen during the initial phases of general model comparison and selection, the Passive Aggressive Classifier (PAC) exhibited the best raw performance with untuned hyperparameters [@crammer2006pa]. While scikit-learn's implementation of PAC is a method wrapper around a linear model, what is interesting to note is that both PAC and LinearSVC share the same hinge loss function. While there are some non-trivial differences between squared hinge and hinge loss, the loss function no longer considers a datapoint relevant to updating the models parameters once a datapoint has been correctly classified, contributing to how the model effectively generalizes to unseen data in production [@lee2013l2multiclass]. The shared loss function means that while the two models are not identical in practice, they are both linear models that share enough traits to substitute one for the other during training. In addition, LinearSVC also has the additional advantage of being particularly robust to previously unseen data as it relies on support vectors as its method of classification. 
 
-![Hinge Loss in SVM](figures/hinge_loss.png)
+![Hinge Loss in SVM [@geeksforgeeks2025hinge]](figures/hinge_loss.png)
 
 This is what sets the final LinearSVC candidate apart from the two other modes, one being Logistic Regression (linear model using cross entropy loss) and the other being XGBoost (boosted decision tree model also using categorical cross-entropy loss), both of which did not outperform the former. It is also worth noting that while during testing that the LinearSVC model performs slightly better in terms of F1-macro score (0.9270) against Logistic Regression V5 (0.9183) as well as XGBoost #21 (0.9177) even without custom model weights that emphasise the confusion categories. However, while using custom weights for LinearSVC did go unexplored and despite the slight empirical advantage of LinearSVC’s F1-macro score, we still opted for Logistic Regression due to the ease of explainability of model performance as well as the fact that hinge loss focuses on accuracy and margin maximization and not predicting probabilities, which plays a significant role in adjusting sensitivities during model deployment. At the same time, while there might be some academic significance behind a 1-2% increase in model performance, this difference is almost rendered obsolete during production as most linear models tend to overfit and degrade significantly in performance once deployed, especially given the performance of the current CWCM model [@steep_drop_performance]. 
 
@@ -749,7 +749,7 @@ The cross-validation methodology successfully captured the inherent performance 
 | Performance Range                | 0.8732 - 0.9184   | 0.8774 - 0.9293   |
 | Normality Test (p-value)        | < 0.001        | 0.836           |
 | Statistical Power                | > 0.999           | 1.000             |
-| Statistical Decision             | Reject $H_0$         | Reject $H_0         |
+| Statistical Decision             | Reject $H_0$         | Reject $H_0$         |
 | Performance Gap                  | -0.0028           | -0.0124           |
 
 : Statistical Metrics for both models.
