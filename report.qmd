@@ -132,7 +132,7 @@ However, vanilla RNNs suffered from the vanishing gradient problem, where inform
 
 While vanilla RNNs introduced the groundbreaking concept of sequential processing, they suffered from a fundamental limitation that severely restricted their practical applications: the vanishing gradient problem. As information propagated backward through time during training, error signals would exponentially decay, making it nearly impossible for networks to learn dependencies spanning more than a few time steps. The mathematical foundation shows that gradients scale by products of weight matrices and activation function derivatives across time steps, causing exponential decay when values are consistently less than 1.0 or explosive growth when greater than 1.0.
 
-![LSTM Cell](figures/LSTM_cell.svg)
+![RNN vs LSTM comparison diagram [@tripathi2021rnn_lstm_diagram]](figures/rnn-vs-lstm.png)
 
 Long Short-Term Memory (LSTM) networks, introduced by Hochreiter and Schmidhuber in 1997, revolutionized sequential modeling by introducing sophisticated gating mechanisms that enable constant error flow through specially designed memory cells [@hochreiter1997lstm]. The LSTM architecture centers around memory cells with linear self-connections called "Constant Error Carousels" (CECs), protected by three types of gates: input gates that control when new information should be stored, forget gates that decide what information should be discarded, and output gates that control when stored information should influence other units. The genius of LSTM lies in these multiplicative gates, which solve the conflicting weight update problem by providing context-sensitive control mechanisms—the input gate learns when to write to memory, the forget gate learns what to discard, and the output gate learns when to read from memory, all while the memory cell maintains constant error flow through its linear self-connection.
  
@@ -148,7 +148,7 @@ The attention mechanism allows the model to dynamically focus on relevant parts 
 
 ### BERT and Bidirectional Language Understanding
 
-![A comparison of the architectures for the Transformer, GPT, and BERT.](figures/transformer_architecture.png)
+![A comparison of the architectures for the Transformer, GPT, and BERT [@smith2024bert_architecture_diagram]](figures/transformer_architecture.png)
 
 BERT (Bidirectional Encoder Representations from Transformers) represented a revolutionary paradigm shift in natural language processing by introducing truly bidirectional pre-training through its innovative masked language modeling approach [@devlin2018bert]. Unlike its predecessors, such as GPT and ELMo, which processed text in a unidirectional manner or used shallow concatenation of independently trained left-to-right and right-to-left models, BERT's architecture enables the model to condition on both left and right context simultaneously across all layers of the network [@radford2018gpt; @peters2018elmo].
 
@@ -324,6 +324,8 @@ In the end, while most models had similar performance, `LogisticRegression` was 
 
 While most of the model training process is completed in python due to the ease of implementation and compatibility with many machine learning libraries, the model will be deployed in the form of a chrome extension and therefore requires JavaScript as a deployment language. There are three components to the model, which consist of tokenization, vectorization, and inference step, which are all required to be deployed in a singular JavaScript file with the necessary extensions. While tokenization and partial vectorization can be handled by a JavaScript/TypeScript implementation of jieba (`nodejieba`), the remainder of the vectorization procedure and inference can both be converted into deployment format using tensorflow thanks to its rich deployment support [@nodejieba; @tensorflow2015_whitepaper]. During this process, the model weights are parsed to individual `tensorflow.keras` layers, after which the model is saved as a `tensorflow.saved_model`, which are then saved to a production-ready format and sent over to the MLOps department. 
 
+![Model pipeline for deployment using tensorflow](figures/model_pipeline.png)
+
 After deployment, model performance is monitored on Kibana using ElasticSearch in our production environments [@kibana]. With the continuous inflow of student data and administrator responses, the model will be continuously monitored and tuned with new data in order to adapt to the real-world data distribution while improving model precision and recall metrics.
 
 
@@ -359,7 +361,7 @@ However, as it is difficult to ascertain whether the URLs collected are of good 
 : Valid URLs after labeling.
 
 
-![Overview of all black URLs after additional collection period.](figures/placeholder.png)
+![Overview of all black URLs after additional collection period.](figures/1_url_collection_summary.png)
 
 
 | Topic     | Hosts | Pages |
@@ -383,9 +385,9 @@ However, as it is difficult to ascertain whether the URLs collected are of good 
 
 The harmful/black URLs were crawled for content using the echo server and parsed to text format, making up the datapoints in our dataset. After crawling, our final dataset was created by taking the union of the previous dataset and the current dataset, combining and removing the duplicate black texts and appending the harmless (white) text to the current dataset. The result is a modest dataset (~2.54 GB in compressed format, ~11.08 GB after decompression) with 412'984 non-null entries and 76.10% of the data belonging to the white category. 
 
-IMAGE Distribution of data points by category; percentage of data by black/white categories.
+![Distribution of data points by category; percentage of data by black/white categories.](figures/2_label_distribution_all.png)
 
-IMAGE Barplot/Pie Chart distribution of black text (note: LGBT, Lingerie, Selfharm, and Sexedu were combined in the Pie Chart for a concise representation).
+![Barplot/Pie Chart distribution of black text (note: LGBT, Lingerie, Selfharm, and Sexedu were combined in the Pie Chart for a concise representation).](figures/3_label_distribution_no_white.png)
 
 As we zoom in on the black data, we see that alcohol contains the most data points out of all black categories with 28,825 datapoints, double the number of datapoints from the next category down. The four categories down from alcohol are games, adult, tobacco, and gambling, all hovering around or above the 10 datapoint mark. Rounding off the bottom 3 categories are lingerie (1701), selfharm (1620), and sexed (398). 
 
@@ -408,7 +410,7 @@ As we zoom in on the black data, we see that alcohol contains the most data poin
 
 : Count of data points by category.
 
-IMAGE Histogram plot of unprocessed text length, unprocessed sentence count, segmented/processed word count, and boxplot of text length by category. 
+![Histogram plot of unprocessed text length, unprocessed sentence count, segmented/processed word count, and boxplot of text length by category. ](figures/4_text_length_distributions.png)
 
 Taking a closer look at the unprocessed and segmented text data, we see that most text samples have a sentence count of up to 2500-3000 words, with the distribution of the data resembling a rather skewed, almost poisson distribution. Before stopwords are removed, sentences have up to 12'000 words per datapoint, that number decreasing to roughly 10'000 after segmentation using Jieba. In the box plot, we can see that most data points contain roughly anywhere between 1'000-10'000 characters on average and rarely exceed that range, meaning that most data points collected contain a usable amount of data that can be further processed and vectorized. For further details on text distribution, please refer to the tables below. 
 
@@ -475,7 +477,7 @@ Taking a closer look at the unprocessed and segmented text data, we see that mos
 
 : Sentence count statistics by category.
 
-IMAGE Histogram plot of unprocessed text length, unprocessed sentence count, segmented/processed word count, and boxplot of text length by category.
+![Distribution of character types in the dataset, showing counts of entries containing Chinese, English, numerical, and special characters.](figures/5_character_type_distribution.png)
 
 It is interesting to note that with our dataset containing just over 400'000 datapoints, we only have roughly 309'000 datapoints that contain Chinese. After further analysis, it seems that the white category contains a number of datapoints from other languages, including but not limited to English, Russian, Spanish, and other languages, accounting for the discrepancy.
 
@@ -509,21 +511,21 @@ Additionally, 2’400 features were extracted from the white category using the 
 During the process of topic modelling using Latent Dirichlet Allocation (LDA), it was discovered that some topics and datapoints separated themselves quite well after applying LDA such as Alcohol (Red), Games (Purple), and Gambling (light pink). 
 
 
-<!-- ![30 topics and T-SNE using `pca`. ](figures/placeholder.png)
+![30 topics and T-SNE using `pca`. ](figures/6_lda_30topics.png)
 
 
-![75 topics and T-SNE using `pca`. ](figures/placeholder.png)
+![75 topics and T-SNE using `pca`. ](figures/7_lda_75topics.png)
 
 
-![150 topics and T-SNE using `pca`. ](figures/placeholder.png) -->
+![150 topics and T-SNE using `pca`. ](figures/8_lda_150topics.png)
 
 
-![Excerpt #1 from LDA with 150 topics, with noticeable confusion clusters between lgbt (dark green), selfharm (grey), drugs (orange), gambling (salmon), adult (pink), and lingerie (light pink) after t-SNE projection.](figures/placeholder.png)
+![Excerpt #1 from LDA with 150 topics, with noticeable confusion clusters between lgbt (dark green), selfharm (grey), drugs (orange), gambling (salmon), adult (pink), and lingerie (light pink) after t-SNE projection.](figures/9_1_150.png)
 
 ::: {layout-ncol=2}
-![Excerpt #2 from LDA with 150 topics, with noticeable confusion clusters between lgbt (dark green), alcohol (red), and selfharm (brown), as well as between games (purple) and violence (light purple) after t-SNE projection.](figures/placeholder.png)
+![Excerpt #2 from LDA with 150 topics, with noticeable confusion clusters between lgbt (dark green), alcohol (red), and selfharm (brown), as well as between games (purple) and violence (light purple) after t-SNE projection.](figures/9_2_150.png)
 
-![Excerpt #3 from LDA with 150 topics, with noticeable confusion clusters between lgbt (dark green), adult (pink), and violence (light purple) after t-SNE projection.](figures/placeholder.png)
+![Excerpt #3 from LDA with 150 topics, with noticeable confusion clusters between lgbt (dark green), adult (pink), and violence (light purple) after t-SNE projection.](figures/9_3_150.png)
 :::
 
 However, other topics are more difficult to separate, with many localized clusters containing data points from multiple topics, such as between games (purple) and violence (light purple), alcohol (red), selfharm (light brown), lgbt (dark green) and tobacco (light orange), as well as lgbt (dark green), adult (pink), and violence (light purple). 
@@ -554,7 +556,7 @@ The result of evaluating the 30+ baseline model candidates showed that linear mo
 
 The best model was the passive aggressive classifier, a textbook linear model implementation designed for large-scale learning using squared hinge loss without the need of a learning rate. Similar to LinearSVC and Logistic Regression, the passive aggressive classifier has a regularization hyperparameter C. Nevertheless, Logistic Regression, however, was the most balanced model out of all tested models with a macro averaged F1-Score of 0.9062. In fact, most well-performing models seem to hit a performance bottleneck around the 0.9 mark and don’t seem to improve much in terms of F1-macro performance.
 
-![Comparison of all models by class.](figures/placeholder.png)
+![Comparison of all models by class.](figures/10_simplified_performance_comparison.png)
 
 
 | Model               | Accuracy | Macro Avg F1 |
@@ -574,9 +576,9 @@ The best model was the passive aggressive classifier, a textbook linear model im
 
 Based solely on accuracy and macro average F1-scores, the best-performing model is PassiveAggressive, achieving the highest accuracy of 0.986 and a strong macro F1 of 0.907, indicating both overall precision and balanced class-wise performance. ExtraTrees, Perceptron, and XGBoost follow closely with 0.985 accuracy, with XGBoost showing the highest macro F1 among them at 0.905, suggesting more consistent performance across classes. LogisticRegression stands out with a macro F1 of 0.910— the highest among all— despite a slightly lower accuracy of 0.984, reflecting excellent balance across class predictions. The neural models, MLP_Large and MLP_Small, perform comparably with accuracies of 0.984 and 0.983, and macro F1 scores of 0.904 and 0.902 respectively, indicating strong generalization. SVC_RBF and LinearSVC both achieve 0.983 accuracy, though LinearSVC lags in macro F1 at 0.879. Lastly, RandomForest shows the lowest accuracy (0.982) and a macro F1 of 0.889, still solid but slightly behind the others. Overall, all models perform well, with minor trade-offs between accuracy and macro-level F1 scores.
 
-![Scatterplot of best performing models (accuracy) vs weighted F1-Score.](figures/placeholder.png)
+![Scatterplot of best performing models (accuracy) vs weighted F1-Score.](figures/11_accuracy_vs_weighted_f1_zoomed.png)
 
-![Macro-averaged precision vs recall of all data categories.](figures/placeholder.png)
+![Macro-averaged precision vs recall of all data categories.](figures/12_precision_vs_recall.png)
 
 | Class Name  | F1 Score Mean | F1 Score Std | F1 Score Max | Support |
 |------------|---------------|--------------|--------------|---------|
@@ -599,13 +601,13 @@ Based solely on accuracy and macro average F1-scores, the best-performing model 
 
 At the same time, it is worth noting that some categories are relatively easier to classify compared to other models. For example, categories such as alcohol, adult, and gambling, all have a relatively high F1-Macro score while classes such as violence, lgbt, and selfharm all perform rather poorly in terms of model performance. The precision vs recall metrics reveal more about the classes themselves, highlighting the difficulty models have with classifying certain categories of the data, highlighting the need for further fine-tuning.  
 
-![Model complexity vs performance. ](figures/placeholder.png)
+![Model complexity vs performance. ](figures/13_complexity_vs_performance.png)
 
 It is also worth noting that more complex models perform better when compared to simple models, yet that statement fails to hold beyond moderately complex models.
 
-![Top: Model performance along with average performance evaluation. Bottom: Model rank and consistency. ](figures/placeholder.png)
+![Top: Model performance along with average performance evaluation. Bottom: Model rank and consistency. ](figures/15_v4.6.5_six_model.png)
 
-![Cross Validation distribution across the top 3 models after initial default search.](figures/placeholder.png)
+![Cross Validation distribution across the top 3 models after initial default search.](figures/16_v4.6.5_three_model.png)
 
 Six of the best models were selected and compared across 10-fold CV, with the top 3 models consistently achieving a mean F1-Macro score of around 0.9. As a result, boosted trees, logistic regression, and LinearSVC were selected for the purpose of further fine tuning. 
 
@@ -613,69 +615,89 @@ Six of the best models were selected and compared across 10-fold CV, with the to
 
 ### LightGBM
 
-![LightGBM randomized hyperparameter search results. 	](figures/placeholder.png)
+![LightGBM randomized hyperparameter search results. 	](figures/17_v4.5.1_lgbm_search.png)
 
 The results from a simple hyperparameter search with 40 iterations of LightGBM revealed that the best validation Macro-Averaged F1-score would still show significant signs of overfitting due to the steep difference between train and validation iteration scores consistently across all models tested. A large max-depth and a small number of leaves for each tree also indicates that overfitting is highly likely in this setup. 
 
 
 ### XGBoost
 
-![XGBoost randomized hyperparameter search results.](figures/placeholder.png)
+![XGBoost randomized hyperparameter search results.](figures/18_v4.5.7_xgboost_randomized_search_results_reduced.png)
 
 Similar to LightGBM, XGBoost also shows similar traits of overfitting as evident by similar train-test F1-macro scores. However, it seems that XGBoost is less reliant on regularization parameters and seems to achieve better performance with less reliance on regularization hyperparameters. 
 
-![Underfitted model (iteration #15) for XGBoost and train-test F1-macro score comparison. ](figures/placeholder.png)
+![Underfitted model (iteration #15) for XGBoost and train-test F1-macro score comparison. ](figures/19_4.5.2_xgboost_underfit.png)
 
 During the initial exploration process for XGBoost, we can see that there are some underfitted models that show promising results and even signs of generalization (see lingerie category). 
 
-![XGBoost 3rd round of training with custom weights.](figures/placeholder.png)
+![XGBoost 3rd round of training with custom weights.](figures/20_train_test_macro_custom_weights.png)
 
 After a more in-depth search of the XGBoost model with custom weights, more promising model candidates were discovered that perform well yet do not show obvious signs of overfitting. Such a model was submitted as a candidate for the final XGBoost Model. 
 
-![Confusion matrix of iteration #21 for XGBoost localized hyperparameter search with custom hyperparameter weights. ](figures/placeholder.png)
+![Confusion matrix of iteration #21 for XGBoost localized hyperparameter search with custom hyperparameter weights. ](figures/21_iteration_21_confusion_matrix.png)
 
 ## LinearSVC
 
 ::: {layout-ncol=2}
-![V4.0.0, setting `cut_all` to `True`](figures/placeholder.png)
+![V4.0.0, setting `cut_all` to `True`](figures/22_v4_cm_cut.png)
 
-![V4.0.0, using the `cut_for_search` mode](figures/placeholder.png)
+![V4.0.0, using the `cut_for_search` mode](figures/22_v4_cm_search.png)
 :::
 
 Initially, the baseline model of choice was LinearSVC, implemented with both vectorized text using jieba’s `cut_all` and `cut_for_search` mode. These two methods demonstrated poor performance with a F1-macro score of 0.8065 for the `cut_all` method and similar performance for the `cut_for_search` method before vectorization. It was during this time that there were a few outlier confusion categories, namely abortion and drugs, as well as drugs and lgbt. 
 
-![V4.4.0 confusion matrix for train set after processing confusion category data.](figures/placeholder.png)
+![V4.4.0 confusion matrix for train set after processing confusion category data.](figures/23_v4.4.0_cm.png)
 
 After using two LLMs and a suitable prompt to adjust the labels of the aforementioned categories, our vectorizer was also recalibrated with the adjusted vectorizer dictionary, resulting in a significant performance increase for our LinearSVC model (F1-macro score of 0.9040).
 
-![V4.4.3 holdout set confusion matrix after data and vectorizer recalibration.](figures/placeholder.png)
+![V4.4.3 holdout set confusion matrix after data and vectorizer recalibration.](figures/24_v4.4.3_holdout_cm.png)
 
 A final LinearSVC model was trained using optimal parameters including l2 regularization, and a 8/1/1 train/test/holdout split, demonstrating the model’s ability to generalize to a holdout dataset and performance on-par with other model candidates. 
 
-![Confusion matrix for version 5 (final version) of our LR model. ](figures/placeholder.png)
+![Confusion matrix for version 5 (final version) of our LR model. ](figures/25_v5_confusion_matrix.png)
 
 ## Logistic Regression
 
 At this point during the model selection process, both the vectorizer dictionary and the existing issue of the mislabeled data has already been solved. Initial model performance with minimal hyperparameter tuning resulted in an F1-macro score of 0.8955, with one subsequent tune for high recall achieving a recall-macro score of 0.9592. However, the best performing model to date achieved an F1-macro score of 0.9183, precision-macro of 0.9341 and recall-macro of 0.9040, on par with the performance of other model finalists. 
 
-![Per Class train-test F1-macro, precision-macro, and recall-macro values for V5 (final) version of our LogisticRegression Model.](figures/placeholder.png)
+![Per Class train-test F1-macro, precision-macro, and recall-macro values for V5 (final) version of our LogisticRegression model compared to previous versions. ](figures/26_v5_per_class_metrics_train_test.png)
 
 
 ## Model Selection
 
 ### Comparing XGBoost, LR, LinearSVC, and LR Confusion Matrices.
 
+![Comparing XGBoost, LR, LinearSVC, and LR Confusion Matrices. ](figures/27_v4.6.3_cm_comparison.png)
 
-When looking at the confusion matrices for our models, it seems that XGBoost generally has a greater tendency to struggle with outlier classification and lower precision performance than the other two models. 
+A closer look at the confusion matrices reveals fundamental differences in how each model approaches the classification task. The precision vs. recall scatter plot demonstrates that LinearSVC achieves consistently high precision across most categories while maintaining competitive recall, doing particularly well in categories with moderate support sizes such as tobacco, gambling, and adult content. XGBoost, while showing strong performance in high-support categories like alcohol and games, struggles to generalize in minority classes with several categories falling below the precision-recall diagonal. This pattern suggests that XGBoost's ensemble approach, while powerful for balanced datasets, struggles with the extreme class imbalance of our dataset.
 
-![Comparing XGBoost, LR, and LinearSVC train-test performances by category. ](figures/placeholder.png)
 
-When comparing by category, it seems that LinearSVC has a slight edge over the other models both in terms of reduced overfitting and general performance. 
-Final Model
+![Comparing XGBoost, LR, and LinearSVC train-test performances by category. ](figures/28_v4.9.1_combined_comparison_f1-score.png)
 
-![Comparing finalist candidates for Logistic Regression Model: v0 (initial baseline), v2/v3 (optimized for high recall), and v5 (optimized for f1-macro performance); top: per class train-test F1-macro score comparison, middle: per class test F1-macro score comparison and recall-precision trade-off with support indication, bottom: confusion matrix for top 4 model candidates. ](figures/placeholder.png)
+![Comparing XGBoost, LR, and LinearSVC test performances by category, support size per category. ](figures/28_v4.9.1_combined_comparison_f1-score.png)
 
-The finalist candidate for the Logistic Regression model, designated as V5, emerged from the final round of random hyperparameter searches and represents the optimal configuration for the CWCM refresh. It exhibits a low regularization profile with a C parameter of 220.77 and trained for 154 rounds, indicating a slow and incremental fitting process while maintaining generalization capabilities. The final model employs L2 regularization (`penalty='l2'`) to prevent overfitting and a multinomial decision boundary. The conversion tolerance was also set to 0.0020 (tol=0.0020046685232624705) that provided an optimal balance between training time and solution precision. 
+
+LinearSVC demonstrates the most consistent performance gap between training and testing phases, indicating robust generalization capabilities essential for real-world educational environments where content patterns may differ from training distributions. Conversely, XGBoost shows larger train-test disparities across multiple categories, particularly in self-harm, violence, and weapons classification, suggesting potential overfitting despite regularization efforts. Logistic Regression strikes a middle ground, showing moderate overfitting patterns but maintaining stable performance across categories with varying support sizes. Given the deployment constraints of client-side inference on resource-limited devices and the critical need for consistent classification decisions in educational settings, these generalization characteristics heavily favor linear approaches over ensemble methods.
+
+
+### Final Model
+
+![Per-class train–test F1-macro score comparison for Logistic Regression model candidates: v0 (initial baseline), v2/v3 (optimized for high recall), and v5 (optimized for F1-macro performance).](figures/29_v4.9.2_combined_comparison_f1-score.png)
+
+The progression from V0 to V5 demonstrates systematic improvement in both overall performance and category-specific classification accuracy. The f1-macro result analysis reveals that V5 achieves superior balance compared to earlier iterations, particularly evident in challenging categories such as self-harm, violence, and weapons where V2/V3 models optimized for high recall showed significant precision degradation. 
+
+
+![Per-class test F1-macro score comparison with recall–precision trade-off and class support indication for Logistic Regression model candidates: v0, v2/v3, and v5.](figures/29_v4.9.2_comparison_performance_summary.png)
+
+The bubble size visualization indicates that V5 maintains competitive performance across categories with varying support sizes, addressing the dataset imbalance challenges that plagued earlier versions. Notably, V5 shows marked improvement in minority classes like sexedu and lingerie while preserving strong performance in high-support categories such as alcohol and games, indicating successful regularization that prevents the model from overfitting to majority classes.
+
+
+![Confusion matrices for the top 4 Logistic Regression model candidates, comparing classification performance across classes.](figures/29_v4.9.2_test_cm_comparison.png)
+
+V5 demonstrates substantially cleaner diagonal patterns compared to V0, with significant reduction in off-diagonal misclassifications that characterized earlier versions. The most pronounced improvements appear in previously problematic category pairs, such as the reduction of drugs-lgbt confusion and the better separation of adult content from lingerie classifications. This enhanced discrimination capability stems from the optimized regularization parameters. The consistent train-test performance gaps across all model versions validate the generalization capabilities, with V5 showing the most stable performance differential, crucial for deployment in production environments where distribution shift is expected.
+
+From a deployment perspective, the V5 configuration represents an optimal compromise between computational efficiency and classification accuracy for client-side implementation. The relatively low regularization strength (C=220.77) allows the model to capture complex feature interactions necessary for distinguishing between nuanced Chinese content categories during training, while the L2 penalty prevents overfitting to the specific linguistic patterns in our training corpus. The surprisingly low 154-iteration convergence profile indicates that the stopping threshold was reached rather early and did not show signs of gradient oscilation. This hyperparameter configuration, combined with the multinomial approach, positions V5 as the foundation model for CWCM deployment while maintaining compatibility with the planned transformer-based CWCM-V2 secondary layer.
+
 
 # Discussion
 
@@ -735,7 +757,10 @@ The cross-validation methodology successfully captured the inherent performance 
 
 This table clearly demonstrates that Logistic Regression significantly outperforms both baseline models, with a more pronounced surplus against LinearSVC (large effect) compared to XGBoost (medium effect). The statistical evidence is overwhelming in both cases, with near-perfect statistical power ensuring reliable detection of the performance differences. However, while it is worth noting that while LinearSVC shows strong indications of normality, the conclusion for XGBoost's normality test skews strongly in favor of rejection, indicating that further analysis may be required.
 
-![Comparing mean F1-Scores and QQ plots for both models against LR baseline metric.](figures/placeholder.png)
+![Comparing mean F1-Scores and QQ plots for LinearSVC against LR baseline metric.](figures/30_4.9.4-svm.png)
+
+![Comparing mean F1-Scores and QQ plots for XGBoost against LR baseline metric.](figures/30_4.9.4-xgb.png)
+
 
 ## Statistical Significance of Dataset Size Constraints
 
@@ -744,7 +769,7 @@ As noted in previous sections, there are significant concerns regarding dataset 
 
 The statistical correlation analysis demonstrates significant positive relationships between dataset size and key performance metrics. Using Spearman rank correlation to account for the extreme class imbalance and potential non-linear relationships, the analysis revealed medium-to-strong correlations across multiple performance dimensions. F1-macro exhibits a significant correlation with log-transformed sample size ($\rho = 0.6868$, $p = 0.009509$), indicating that categories with larger datasets tend to achieve substantially better F1-macro performance. This relationship exceeds the Bonferroni-corrected significance threshold ($\alpha = 0.0167$), providing strong evidence for a systematic relationship between data availability and model effectiveness.
 
-![F1-macro, recall, and precision fitted against log(sample size);all metrics plotted against log(sample size)](figures/placeholder.png)
+![F1-macro, recall, and precision fitted against log(sample size);all metrics plotted against log(sample size) ](figures/31_4.9.4-3_metrics_plotted.png)
 
 Similarly, recall performance demonstrates an even stronger correlation with dataset size ($\rho = 0.6978$, $p = 0.008001$), suggesting that the model's ability to correctly identify positive instances improves markedly with increased training examples. This finding aligns with machine learning theory, where larger datasets typically enable better boundary definition and reduced overfitting, particularly for minority classes. 
 
@@ -753,9 +778,11 @@ However, precision shows a more complex relationship ($\rho = 0.5495$, $p = 0.05
 The extreme disparity in category representation becomes evident when examining the logarithmic distribution of sample sizes across categories. The analysis reveals that categories with fewer than 2,000 samples (lgbt, lingerie, selfharm, sexedu) demonstrate highly variable performance patterns, with some achieving surprisingly strong results despite limited data. Notably, sexedu and lingerie achieve F1 scores of 0.9292 and 0.9267 respectively, suggesting that certain categories may be inherently more discriminable or contain higher-quality features that compensate for limited sample sizes.
 Dataset size by category compared with performance metrics by category.
 
+![Dataset size by category compared with performance metrics by category.](figures/32_4.9.4-dataset-size-by-category.png)
+
 Conversely, categories with intermediate sample sizes (2,000-6,000 samples) show more consistent underperformance, particularly violence ($F1 = 0.8382$), abortion ($F1 = 0.8469$), and selfharm ($F1 = 0.8305$). This pattern suggests a complex, non-linear relationship where moderate increases in sample size may not uniformly translate to performance improvements, potentially due to inherent content complexity within these specific categories.
 
-![F1-macro score vs log(sample size) against regression line with 95% CI.](figures/placeholder.png)
+![F1-macro score vs log(sample size) against regression line with 95% CI.](figures/33_4.9.4-f1-score-with-regression-line.png)
 
 The linear regression analysis quantifies the relationship between log sample size and F1 performance with $R^2 = 0.2871$, meaning that the model explains approximately $28.7%$ of the variance in F1 performance through sample size alone, indicating that while dataset size represents a meaningful predictor of performance, other factors account for the majority of performance variation. The positive slope coefficient (0.0317) confirms that each unit increase in log sample size corresponds to an expected 0.0317 improvement in F1 score, providing a quantitative basis for data collection prioritization.
 
