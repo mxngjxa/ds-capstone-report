@@ -655,7 +655,7 @@ explosive growth when greater than 1.0.
 
 \begin{figure}[H]
 
-{\centering \pandocbounded{\includegraphics[keepaspectratio]{report_files/mediabag/figures/LSTM_Cell.pdf}}
+{\centering \pandocbounded{\includegraphics[keepaspectratio]{report_files/mediabag/figures/LSTM_cell.pdf}}
 
 }
 
@@ -693,19 +693,22 @@ transformer revolution, with architectures like GRUs (Gated Recurrent
 Units) simplifying the gating mechanism while maintaining the core
 benefits of selective memory management.
 
-bidirectional approach proved crucial for tasks requiring comprehensive
-understanding of linguistic context, laying the groundwork for the LSTM
-and subsequent transformer revolution that followed.
+The real breakthrough came with bidirectional processing capabilities,
+where models could consider both past and future context simultaneously.
+This bidirectional approach proved crucial for tasks requiring
+comprehensive understanding of linguistic context, laying the groundwork
+for the LSTM and subsequent transformer revolution that followed.
 
 \subsubsection{The Transformer Architecture
 Revolution}\label{the-transformer-architecture-revolution}
 
 The seminal ``Attention is All You Need'' paper fundamentally changed
 the landscape by introducing the Transformer architecture, abandoning
-recurrence entirely in favor of self-attention mechanisms. This paradigm
-shift enabled models to attend to all positions in a sequence
-simultaneously, dramatically improving both training efficiency and the
-model's ability to capture long-range dependencies.
+recurrence entirely in favor of self-attention mechanisms(Vaswani et
+al., 2017). This paradigm shift enabled models to attend to all
+positions in a sequence simultaneously, dramatically improving both
+training efficiency and the model's ability to capture long-range
+dependencies.
 
 The attention mechanism allows the model to dynamically focus on
 relevant parts of the input when processing each token, similar to how
@@ -718,15 +721,27 @@ relationships.
 \subsubsection{BERT and Bidirectional Language
 Understanding}\label{bert-and-bidirectional-language-understanding}
 
+\begin{figure}[H]
+
+{\centering \pandocbounded{\includegraphics[keepaspectratio]{figures/transformer_architecture.png}}
+
+}
+
+\caption{A comparison of the architectures for the Transformer, GPT, and
+BERT.}
+
+\end{figure}%
+
 BERT (Bidirectional Encoder Representations from Transformers)
 represented a revolutionary paradigm shift in natural language
 processing by introducing truly bidirectional pre-training through its
-innovative masked language modeling approach. Unlike its predecessors,
-such as GPT and ELMo, which processed text in a unidirectional manner or
-used shallow concatenation of independently trained left-to-right and
-right-to-left models, BERT's architecture enables the model to condition
-on both left and right context simultaneously across all layers of the
-network.
+innovative masked language modeling approach(Devlin et al., 2018).
+Unlike its predecessors, such as GPT and ELMo, which processed text in a
+unidirectional manner or used shallow concatenation of independently
+trained left-to-right and right-to-left models, BERT's architecture
+enables the model to condition on both left and right context
+simultaneously across all layers of the network(Peters et al., 2018;
+Radford et al., 2018).
 
 The fundamental innovation lies in BERT's use of the Transformer encoder
 architecture with bidirectional self-attention. In traditional
@@ -782,12 +797,12 @@ the broader context.
 The impact of this bidirectional approach was immediately apparent in
 BERT's performance across a wide range of NLP tasks. The model achieved
 new state-of-the-art results on eleven different tasks, including a
-remarkable 7.7\% absolute improvement on the GLUE benchmark. This
-success demonstrated that bidirectional pre-training could capture
-linguistic phenomena that were previously difficult for unidirectional
-models to learn, such as syntactic dependencies that span long distances
-and semantic relationships that require understanding of both preceding
-and following context.
+remarkable 7.7\% absolute improvement on the GLUE benchmark(Wang et al.,
+2018). This success demonstrated that bidirectional pre-training could
+capture linguistic phenomena that were previously difficult for
+unidirectional models to learn, such as syntactic dependencies that span
+long distances and semantic relationships that require understanding of
+both preceding and following context.
 
 \subsection{Optimization and Scaling
 Improvements}\label{optimization-and-scaling-improvements}
@@ -797,9 +812,10 @@ systematic investigation into the training procedures and
 hyperparameters that contribute to BERT's success, revealing that many
 of the performance gains attributed to architectural innovations were
 actually due to suboptimal training configurations in the original BERT
-implementation. The research demonstrated that BERT was significantly
-undertrained and that careful optimization of the training process could
-yield substantial improvements without any architectural modifications.
+implementation(Liu et al., 2019). The research demonstrated that BERT
+was significantly undertrained and that careful optimization of the
+training process could yield substantial improvements without any
+architectural modifications.
 
 One of the most significant findings was the impact of training duration
 and batch size scaling. While the original BERT was trained for 1
@@ -871,10 +887,10 @@ The cumulative effect of these optimizations was remarkable. RoBERTa
 achieved 88.5\% on the GLUE leaderboard while using the same masked
 language modeling objective as BERT, demonstrating that training
 procedures and data quality were often more important than architectural
-innovations. This finding had profound implications for the field,
-suggesting that many reported improvements in subsequent models might be
-attributable to better training practices rather than fundamental
-architectural advances.
+innovations(Wang et al., 2018). This finding had profound implications
+for the field, suggesting that many reported improvements in subsequent
+models might be attributable to better training practices rather than
+fundamental architectural advances.
 
 \subsection{Knowledge Distillation and
 Efficiency}\label{knowledge-distillation-and-efficiency}
@@ -886,7 +902,8 @@ applications requiring real-time inference. DistilBERT addressed this
 challenge by pioneering the application of knowledge distillation
 techniques specifically during the pre-training phase, creating a
 fundamentally new approach to model compression that maintained strong
-performance while dramatically reducing computational requirements.
+performance while dramatically reducing computational requirements(Sanh
+et al., 2019).
 
 Knowledge distillation, originally developed for supervised learning
 tasks, involves training a compact ``student'' model to reproduce the
@@ -986,7 +1003,8 @@ represent the latest evolution in this progression, incorporating
 architectural innovations to handle longer sequences. Built on the BERT
 architecture, JinaBERT integrates Attention with Linear Biases (ALiBi)
 to support sequence lengths up to 8,192 tokens---a 16x improvement over
-standard BERT's 512-token limit.
+standard BERT's 512-token limit(Press et al., 2021; Sturua et al.,
+2023).
 
 ALiBi enables this extension by replacing traditional position
 embeddings with linear biases applied directly to attention scores,
@@ -1005,7 +1023,8 @@ systems operating in multilingual environments.
 Adaptation}\label{fine-tuning-strategies-and-task-adaptation}
 
 Research into fine-tuning methodologies has revealed sophisticated
-strategies for adapting pre-trained models to specific tasks. Key
+strategies for adapting pre-trained models to specific
+tasks(\emph{Fine-Tuning Strategies for Task Adaptation}, 2023). Key
 considerations include:
 
 \begin{itemize}
@@ -1163,18 +1182,21 @@ transportation-related topics. \\
 In the context of our target market, the categories Drugs, Tobacco, and
 Weapons are all highly relevant to Taiwan's K-12 Education System.
 Illegal drug use among Taiwanese adolescents is a significant concern,
-with the average age of first use around 12.5 years old. Drug use
-prevalence is higher among certain groups such as students in night
-vocational high schools. Schools in Taiwan play a central role in
-preventing and integrating anti-drug education training into the
-curriculum, the efforts of which can be supported by our web filter.
+with the average age of first use being as low as when a child is 12
+years old(Lin et al., 2021). Drug use prevalence is higher among certain
+groups such as students in night vocational high schools. Schools in
+Taiwan play a central role in preventing and integrating anti-drug
+education training into the curriculum, the efforts of which can be
+supported by our web filter({``Substance Use Among Adolescents in
+Taiwan,''} 2021).
 
 Tobacco is often the gateway substance used by youth who later use
 alcohol or other drugs and is closely monitored through the Taiwan
 Global Youth Tobacco Survey (GYTS). While the government enforces strict
 smoking bans on minors, and the GYTS supports ongoing efforts to reduce
 youth smoking, detection in schools can play a key role in more
-localized efforts at preventing early tobacco abuse.
+localized efforts at preventing early tobacco abuse(Chang et al., 2015;
+Seal, 2006).
 
 In general, weapons (including BB guns and airsoft) are identified as a
 category of concern for school filtering and safety systems. The need to
@@ -1261,16 +1283,17 @@ sufficient amount of datapoints such the baseline model could be
 trained.
 
 In order to collect a sufficient amount of URLs with brevity, an option
-was devised using a selenium-based google search result crawler. Based
-on a list of keywords related to a certain topic \(X\), we generated
-permutations of the keywords and append it to the URL of a google search
-URL root url for the Taiwanese version of the popular search engine. We
-would exploit the fact that google searches have the results separated
-by unique \texttt{div} tags in the HTML source code in order to extract
-all relevant hyperlinks to related URLs in the search results. We would
-also save the embedded hyperlinks for the next few pages with pagination
-features. A random timer was introduced between clicks in order to avoid
-the CAPTCHA filter by mimicking human browsing activity.
+was devised using a selenium-based google search result crawler(Sharma,
+2014). Based on a list of keywords related to a certain topic \(X\), we
+generated permutations of the keywords and append it to the URL of a
+google search URL root url for the Taiwanese version of the popular
+search engine. We would exploit the fact that google searches have the
+results separated by unique \texttt{div} tags in the HTML source code in
+order to extract all relevant hyperlinks to related URLs in the search
+results. We would also save the embedded hyperlinks for the next few
+pages with pagination features. A random timer was introduced between
+clicks in order to avoid the CAPTCHA filter by mimicking human browsing
+activity.
 
 Under the assumption that the root domain of the URL itself could be a
 likely candidate for a host page, a script was devised in order to
@@ -1306,7 +1329,8 @@ how they are commonly employed in the Chinese language. For this, we
 used Jieba's \texttt{dict.txt.big} library to separate text by a
 predefined dictionary with support for both traditional and simplified
 Chinese phrases and characters. This allows the text to be segmented
-into phrases with unique meaning for further representation.
+into phrases with unique meaning for further representation(fxsjy,
+n.d.).
 
 The next step after segmentation is to vectorize the text in order to
 feed individual documents into a classifier. Several methods, including
@@ -1324,14 +1348,14 @@ as it consisted of integers, stopwords, and the like.
 In order to resolve this, a custom dictionary was constructed from text
 belonging to each category of our current dataset using two distinct
 feature-extraction methods, which were a simple TF-IDF algorithm and
-textrank, both implementations native to the Jieba library. For each
-text file in each category of our dataset, the top 20 features were
-extracted from the individual text file and added to the general
-dictionary for voting, with each of the 20 features in the text casting
-one vote for itself. With each datapoint casting 20 votes, this process
-was repeated for all datapoints. After all votes have been cast for a
-given category, the top 200 features with the most votes were taken from
-each category and saved to a large dictionary.
+textrank, both implementations native to the Jieba library(Mihalcea \&
+Tarau, 2004). For each text file in each category of our dataset, the
+top 20 features were extracted from the individual text file and added
+to the general dictionary for voting, with each of the 20 features in
+the text casting one vote for itself. With each datapoint casting 20
+votes, this process was repeated for all datapoints. After all votes
+have been cast for a given category, the top 200 features with the most
+votes were taken from each category and saved to a large dictionary.
 
 As for the white category containing the harmless text, given the
 significant number of subcategories and number of datapoints, the number
@@ -1350,11 +1374,11 @@ In addition to some rudimentary EDA, some extensive topic modelling was
 performed using scikit-learn's implementation of Latent Dirichlet
 Allocation (LDA) and visualized with t-distributed Stochastic Neighbor
 Embedding(t-SNE) using a linear method (Principal Component
-Analysis/PCA) as the inference engine. A range of topic counts (from 15
-to 150) will be used in order to observe whether there is a difference
-in separation quality, and more importantly, whether there are topics
-that are difficult to linearly separate in order to take note of
-CWCM-V2.
+Analysis/PCA) as the inference engine(Blei et al., 2003; Jolliffe, 2002;
+Van der Maaten \& Hinton, 2008). A range of topic counts (from 15 to
+150) will be used in order to observe whether there is a difference in
+separation quality, and more importantly, whether there are topics that
+are difficult to linearly separate in order to take note of CWCM-V2.
 
 \subsection{Model Training}\label{model-training}
 
@@ -3062,6 +3086,18 @@ Better calibrated probabilities in machine learning models. (2024).
 \emph{BMC Medical Research Methodology}.
 \url{https://bmcmedresmethodol.biomedcentral.com/articles/10.1186/s12874-024-02389-x}
 
+\bibitem[\citeproctext]{ref-blei2003latent}
+Blei, D. M., Ng, A. Y., \& Jordan, M. I. (2003). Latent dirichlet
+allocation. \emph{Journal of Machine Learning Research}, \emph{3},
+993--1022.
+
+\bibitem[\citeproctext]{ref-chang2015prevention}
+Chang, F.-C., Chang, Y. C., Lee, C.-M., Lung, C.-N., Liao, H.-J., Lee,
+S., Miao, N.-F., Lin, S.-H., \& Zeng, W. (2015). Effects of a
+school-based drug use prevention programme for middle-school students in
+taiwan. \emph{Drugs: Education, Prevention and Policy}, \emph{22},
+43--51. \url{https://api.semanticscholar.org/CorpusID:73334129}
+
 \bibitem[\citeproctext]{ref-chen2016xgboost}
 Chen, T., \& Guestrin, C. (2016). XGBoost: A scalable tree boosting
 system. \emph{arXiv Preprint arXiv:1603.02754}.
@@ -3082,6 +3118,12 @@ developers, S. (n.d.). \emph{Linear models - scikit-learn
 documentation}.
 \url{https://scikit-learn.org/stable/modules/linear_model.html}.
 
+\bibitem[\citeproctext]{ref-devlin2018bert}
+Devlin, J., Chang, M.-W., Lee, K., \& Toutanova, K. (2018). BERT:
+Pre-training of deep bidirectional transformers for language
+understanding. \emph{arXiv Preprint arXiv:1810.04805}.
+\url{https://arxiv.org/abs/1810.04805}
+
 \bibitem[\citeproctext]{ref-frontiers2025digital}
 Digital education research trends 2014-2023. (2025). \emph{Frontiers in
 Education}.
@@ -3097,6 +3139,16 @@ Egami, H., Rahman, Md. S., Yamamoto, T., Egami, C., \& Wakabayashi, T.
 Fan, R.-E., Chang, K.-W., Hsieh, C.-J., Wang, X.-R., \& Lin, C.-J.
 (2008). LIBLINEAR: A library for large linear classification.
 \emph{Journal of Machine Learning Research}, \emph{9}, 1871--1874.
+
+\bibitem[\citeproctext]{ref-stanford2023finetuning}
+\emph{Fine-tuning strategies for task adaptation}. (2023). Stanford
+University.
+\url{https://web.stanford.edu/class/archive/cs/cs224n/cs224n.1234/final-reports/final-report-169710070.pdf}
+
+\bibitem[\citeproctext]{ref-jieba}
+fxsjy. (n.d.). \emph{{jieba: Chinese text segmentation}} (Version refer
+to GitHub for current release) {[}Computer software{]}.
+\url{https://github.com/fxsjy/jieba}
 
 \bibitem[\citeproctext]{ref-vonDerHeiden2019}
 Heiden, J. M. von der, Braun, B., Müller, K. W., \& Egloff, B. (2019).
@@ -3118,6 +3170,10 @@ HolonIQ. (2025). \emph{Global education technology market to reach
 Jare, A., \& Kolte, S. (2023). DefendNet: Harnessing AI/ML for dynamic
 DNS and web filtering. \emph{Semantic Scholar}.
 \url{https://www.semanticscholar.org/paper/DefendNet\%3A-Harnessing-AI-ML-for-Dynamic-DNS-and-Jare-Kolte/d2b8abf7ff9a85d7d58e85ca319bdc902a92497f}
+
+\bibitem[\citeproctext]{ref-jolliffe2002principal}
+Jolliffe, I. T. (2002). \emph{Principal component analysis} (2nd ed.).
+Springer.
 
 \bibitem[\citeproctext]{ref-osti_6910294}
 Jordan, M. I. (1986). \emph{Serial order: A parallel distributed
@@ -3147,10 +3203,28 @@ LightGBM: A highly efficient gradient boosting decision tree. (2017).
 \emph{Advances in Neural Information Processing Systems}.
 \url{https://proceedings.neurips.cc/paper_files/paper/2017/file/6449f44a102fde848669bdd9eb6b76fa-Paper.pdf}
 
+\bibitem[\citeproctext]{ref-lin2021healthliteracy}
+Lin, L. C., Huang, C. M., Hsu, H. P., Liao, J. Y., Lin, C. Y., \& Guo,
+J. L. (2021). Integrating health literacy into a theory-based drug-use
+prevention program: A quasi-experimental study among junior high
+students in taiwan. \emph{BMC Public Health}, \emph{21}(1), 1768.
+\url{https://doi.org/10.1186/s12889-021-11830-5}
+
+\bibitem[\citeproctext]{ref-liu2019roberta}
+Liu, Y., Ott, M., Goyal, N., Du, J., Joshi, M., Chen, D., Levy, O.,
+Lewis, M., Zettlemoyer, L., \& Stoyanov, V. (2019). RoBERTa: A robustly
+optimized BERT pretraining approach. \emph{arXiv Preprint
+arXiv:1907.11692}. \url{https://arxiv.org/abs/1907.11692}
+
 \bibitem[\citeproctext]{ref-InspiraHealth2025}
 Lotkowski, S. (2025). \emph{Brain rot explained: How digital overload
 affects your mind}. Inspira Health Network.
 \url{https://www.inspirahealthnetwork.org/news/healthy-living/brain-rot-explained-how-digital-overload-affects-your-mind}
+
+\bibitem[\citeproctext]{ref-mihalcea2004textrank}
+Mihalcea, R., \& Tarau, P. (2004). TextRank: Bringing order into text.
+\emph{Proceedings of the 2004 Conference on Empirical Methods in Natural
+Language Processing}, 404--411.
 
 \bibitem[\citeproctext]{ref-oecd2023pisa}
 OECD. (2023). \emph{PISA 2022 assessment and analytical framework}.
@@ -3168,10 +3242,29 @@ mental health: The u.s. Surgeon general's advisory}. U.S. Department of
 Health; Human Services.
 \url{https://www.hhs.gov/surgeongeneral/reports-and-publications/youth-mental-health/social-media/index.html}
 
+\bibitem[\citeproctext]{ref-peters2018elmo}
+Peters, M. E., Neumann, M., Iyyer, M., Gardner, M., Clark, C., Lee, K.,
+\& Zettlemoyer, L. (2018). Deep contextualized word representations.
+\emph{Proceedings of the 2018 Conference of the North American Chapter
+of the Association for Computational Linguistics: Human Language
+Technologies}. \url{https://aclanthology.org/N18-1202.pdf}
+
+\bibitem[\citeproctext]{ref-press2021alibi}
+Press, O., Smith, N. A., \& Lewis, M. (2021). Train short, test long:
+Attention with linear biases enables input length extrapolation.
+\emph{arXiv Preprint arXiv:2108.12409}.
+\url{https://arxiv.org/abs/2108.12409}
+
 \bibitem[\citeproctext]{ref-qureshi2023digital}
 Qureshi, M. I., \& Khan, N. (2023). Digital technologies in education
 4.0. Does it enhance the learning experience? \emph{Semantic Scholar}.
 \url{https://www.semanticscholar.org/paper/Digital-Technologies-in-Education-4.0.-Does-it-the-Qureshi-Khan/ba699042e175b7aa3d48a49787131b3a2b7a7dd0}
+
+\bibitem[\citeproctext]{ref-radford2018gpt}
+Radford, A., Narasimhan, K., Salimans, T., \& Sutskever, I. (2018).
+\emph{Improving language understanding by generative pre-training}.
+OpenAI.
+\url{https://cdn.openai.com/research-covers/language-unsupervised/language_understanding_paper.pdf}
 
 \bibitem[\citeproctext]{ref-RAGAN201478}
 Ragan, E. D., Jennings, S. R., Massey, J. D., \& Doolittle, P. E.
@@ -3179,16 +3272,32 @@ Ragan, E. D., Jennings, S. R., Massey, J. D., \& Doolittle, P. E.
 \emph{Computers \& Education}, \emph{78}, 78--86.
 https://doi.org/\url{https://doi.org/10.1016/j.compedu.2014.05.002}
 
+\bibitem[\citeproctext]{ref-sanh2019distilbert}
+Sanh, V., Debut, L., Chaumond, J., \& Wolf, T. (2019). DistilBERT, a
+distilled version of BERT: Smaller, faster, cheaper and lighter.
+\emph{arXiv Preprint arXiv:1910.01108}.
+\url{https://arxiv.org/pdf/1910.01108}
+
 \bibitem[\citeproctext]{ref-schmidt2019recurrent}
 Schmidt, R. M. (2019). Recurrent neural networks (RNNs): A gentle
 introduction and overview. \emph{arXiv Preprint arXiv:1912.05911}.
 \url{https://arxiv.org/abs/1912.05911}
+
+\bibitem[\citeproctext]{ref-seal2006preventing}
+Seal, N. (2006). Preventing tobacco and drug use among thai high school
+students through life skills training. \emph{Nursing \& Health
+Sciences}, \emph{8 3}, 164--168.
+\url{https://api.semanticscholar.org/CorpusID:7553748}
 
 \bibitem[\citeproctext]{ref-Shanmugasundaram2023}
 Shanmugasundaram, M., \& Tamilarasu, A. (2023). The impact of digital
 technology, social media, and artificial intelligence on cognitive
 functions: A review. \emph{Frontiers in Cognition}, \emph{2}, 1203077.
 \url{https://doi.org/10.3389/fcogn.2023.1203077}
+
+\bibitem[\citeproctext]{ref-Sharma2014SeleniumTA}
+Sharma, M. (2014). \emph{Selenium tool: A web based automation testing
+framework}. \url{https://api.semanticscholar.org/CorpusID:18049611}
 
 \bibitem[\citeproctext]{ref-SonstengPerson2023}
 Sonsteng-Person, M., Jaggers, J. W., \& Loomis, A. M. (2023). Academic
@@ -3200,6 +3309,15 @@ Adolescent Trauma}, \emph{16}(3), 717--729.
 \bibitem[\citeproctext]{ref-iza2018students}
 \emph{Student device usage patterns} (11455). (2018). Institute for
 Labor Economics. \url{https://docs.iza.org/dp11455.pdf}
+
+\bibitem[\citeproctext]{ref-sturua2023jinabert}
+Sturua, S., Wang, N., Kosson, A., \& Xiao, H. (2023). JinaBERT:
+Extending BERT for long documents with ALiBi. \emph{arXiv Preprint
+arXiv:2310.19923}. \url{https://arxiv.org/pdf/2310.19923}
+
+\bibitem[\citeproctext]{ref-chen2021taiwan}
+Substance use among adolescents in taiwan: A systematic review. (2021).
+\emph{PMC}. \url{https://pmc.ncbi.nlm.nih.gov/articles/PMC8479915/}
 
 \bibitem[\citeproctext]{ref-svm2018ideal}
 Support vector machines as ideal candidates for sparse data
@@ -3219,6 +3337,22 @@ Task switching and cognitive performance. (2013). \emph{PsycNet APA}.
 UNESCO. (2023). \emph{Global education monitoring report 2023:
 Technology in education: A tool on whose terms?} UNESCO.
 \url{https://www.unesco.org/gem-report/sites/default/files/medias/fichiers/2023/07/Summary_v5.pdf}
+
+\bibitem[\citeproctext]{ref-maaten2008visualizing}
+Van der Maaten, L., \& Hinton, G. (2008). Visualizing data using t-SNE.
+\emph{Journal of Machine Learning Research}, \emph{9}(11), 2579--2605.
+
+\bibitem[\citeproctext]{ref-vaswani2017attention}
+Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L., Gomez,
+A. N., Kaiser, Ł., \& Polosukhin, I. (2017). Attention is all you need.
+\emph{arXiv Preprint arXiv:1706.03762}.
+\url{https://arxiv.org/abs/1706.03762}
+
+\bibitem[\citeproctext]{ref-wang2018glue}
+Wang, A., Singh, A., Michael, J., Hill, F., Levy, O., \& Bowman, S. R.
+(2018). GLUE: A multi-task benchmark and analysis platform for natural
+language understanding. \emph{International Conference on Learning
+Representations}. \url{https://openreview.net/pdf?id=rJ4km2R5t7}
 
 \bibitem[\citeproctext]{ref-Ward2017}
 Ward, A. F., Duke, K., Gneezy, A., \& Bos, M. W. (2017). Brain drain:
