@@ -843,40 +843,7 @@ The broader implications of this research extend beyond technical achievement to
 # Appendices {.unnumbered}
 <!-- Include supplementary material. -->
 
-## Libraries Used
-
-import os
-import time
-import random
-from tqdm import tqdm
-from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
-from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from urllib.parse import quote_plus 
-
-from app.scrape_logger import ScrapeLogger
-from app.browser import Browser, user_agents
-
-import os
-import sys
-import base64
-import requests
-from tqdm import tqdm
-import concurrent.futures
-from bs4 import BeautifulSoup
-from dotenv import load_dotenv
-from urllib.parse import urlparse
-
-from openai import OpenAI
-from google import genai
-from google.genai import types
-
-from error_logger import ErrorLogger
-from extractor import extract_text, is_valid_website
-from topics import topic_dict_small, topic_dict_medium, topic_dict_max
+REDACTED
 
 
 # References {.unnumbered}
