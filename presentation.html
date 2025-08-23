@@ -95,8 +95,28 @@
     code span.va { color: #e36209; } /* Variable */
     code span.vs { color: #032f62; } /* VerbatimString */
     code span.wa { color: #ff5555; } /* Warning */
-  </style>
-  <link rel="stylesheet" href="presentation_files/libs/revealjs/dist/theme/quarto-f563837468303362081e247dddd440d0.css">
+    /* CSS for citations */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+      margin-bottom: 0em;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  </style>
+  <link rel="stylesheet" href="presentation_files/libs/revealjs/dist/theme/quarto-8a5cdbf101a0845817b98f2425171703.css">
   <link href="presentation_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="presentation_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="presentation_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -216,47 +236,30 @@ Mingjia ‘Jacky’ Guan
 </section>
 <section id="the-digital-education-challenge" class="slide level2">
 <h2>The Digital Education Challenge</h2>
-<div class="columns">
-<div class="column" style="width:60%;">
 <h3 id="current-state">Current State</h3>
 <ul>
-<li><strong>&gt;50%</strong> of lower-secondary classrooms now digitally connected</li>
-<li><strong>3:2</strong> student-to-computer ratio (2022)</li>
-<li><strong>85%</strong> of OECD countries promoting digital strategies</li>
-<li><strong>&gt;1 billion</strong> students adopted digital learning (COVID-19)</li>
+<li><strong>&gt;74%</strong> of US schools now meet FCC requirements for connectivity <span class="citation" data-cites="connected_nation_2023_school_connectivity">(<a href="#/references" role="doc-biblioref" onclick="">Connected Nation and Funds For Learning 2023</a>)</span></li>
+<li><strong>3:2</strong> student-to-computer ratio, up from 7:1 <span class="citation" data-cites="oecd2023pisa">(<a href="#/references" role="doc-biblioref" onclick="">OECD 2023</a>)</span></li>
+<li><strong>85%</strong> of OECD countries promoting digital strategies <span class="citation" data-cites="oecd2023pisa">(<a href="#/references" role="doc-biblioref" onclick="">OECD 2023</a>)</span></li>
+<li><strong>&gt;1 billion</strong> students adopted digital learning (COVID-19) <span class="citation" data-cites="unesco2023gem">(<a href="#/references" role="doc-biblioref" onclick="">UNESCO 2023</a>)</span></li>
 </ul>
+</section>
+<section class="slide level2">
+
 <h3 id="the-problem">The Problem</h3>
 <ul>
-<li><strong>30%</strong> of students distracted by devices in math lessons</li>
-<li><strong>80%</strong> of students multitask on electronic devices while studying</li>
-<li>Negative impact on academic performance and cognitive development</li>
+<li><strong>Media Multitasking</strong> in education setting lowers grades <span class="citation" data-cites="RAGAN201478">(<a href="#/references" role="doc-biblioref" onclick="">Ragan et al. 2014</a>)</span></li>
+<li><strong>1 in 3</strong> of students distracted by devices in math lessons <span class="citation" data-cites="oecd2024screen">(<a href="#/references" role="doc-biblioref" onclick="">OECD 2024</a>)</span></li>
+<li><strong>80%</strong> of students multitask on electronic devices while studying <span class="citation" data-cites="iza2018students">(<a href="#/references" role="doc-biblioref" onclick=""><span>“Student Device Usage Patterns”</span> 2018</a>)</span></li>
+<li>Negative impact on academic performance and cognitive development, aka <strong>brain drain</strong> <span class="citation" data-cites="Ward2017">(<a href="#/references" role="doc-biblioref" onclick="">Ward et al. 2017</a>)</span></li>
 </ul>
-</div><div class="column" style="width:40%;">
-<div class="cell" data-layout-align="default">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb1-1"><a href="" aria-hidden="true" tabindex="-1"></a>graph TD</span>
-<span id="cb1-2"><a href="" aria-hidden="true" tabindex="-1"></a>    A[Digital Education Growth] --&gt; B[Student Distraction]</span>
-<span id="cb1-3"><a href="" aria-hidden="true" tabindex="-1"></a>    B --&gt; C[Academic Performance Decline]</span>
-<span id="cb1-4"><a href="" aria-hidden="true" tabindex="-1"></a>    C --&gt; D[Need for Content Filtering]</span>
-<span id="cb1-5"><a href="" aria-hidden="true" tabindex="-1"></a>    D --&gt; E[CWCM Solution]</span>
-<span id="cb1-6"><a href="" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb1-7"><a href="" aria-hidden="true" tabindex="-1"></a>    style A fill:#e1f5fe</span>
-<span id="cb1-8"><a href="" aria-hidden="true" tabindex="-1"></a>    style E fill:#c8e6c9</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<p></p><figure class=""><p></p>
-<div>
-
-</div>
-<p></p></figure><p></p>
-</div>
-</div>
-</div>
-</div></div>
 </section>
+<section class="slide level2">
+
+
+<img data-src="figures/m1.svg" class="r-stretch"></section>
 <section id="legacy-filtering-limitations" class="slide level2">
 <h2>Legacy Filtering Limitations</h2>
-<div class="columns">
-<div class="column" style="width:50%;">
 <h3 id="traditional-methods">Traditional Methods</h3>
 <ul>
 <li><strong>URL Filtering</strong>: Block/allow lists</li>
@@ -264,6 +267,9 @@ Mingjia ‘Jacky’ Guan
 </li>
 <li><strong>Proxy Filtering</strong>: Intermediary servers</li>
 </ul>
+</section>
+<section class="slide level2">
+
 <h3 id="critical-weaknesses">Critical Weaknesses</h3>
 <ul>
 <li>Limited granularity (domain-level only)</li>
@@ -271,17 +277,30 @@ Mingjia ‘Jacky’ Guan
 <li>Binary approach (all or nothing)</li>
 <li>No contextual understanding</li>
 </ul>
-</div><div class="column" style="width:50%;">
+</section>
+<section class="slide level2">
+
 <h3 id="example-challenge">Example Challenge</h3>
 <p>Same domain, different content:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb2-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">news-website.com</span><span class="kw">:</span></span>
-<span id="cb2-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> /education/science-breakthrough ✅</span></span>
-<span id="cb2-3"><a href="" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> /entertainment/inappropriate ❌  </span></span>
-<span id="cb2-4"><a href="" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> /health/wellness-tips ✅</span></span>
-<span id="cb2-5"><a href="" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> /adult-content ❌</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p><strong>Traditional filters</strong>: All or nothing<br>
-<strong>CWCM</strong>: Content-aware decisions</p>
-</div></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb1-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">news-website.com</span><span class="kw">:</span></span>
+<span id="cb1-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> /education/science-breakthrough ✅</span></span>
+<span id="cb1-3"><a href="" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> /entertainment/inappropriate ❌  </span></span>
+<span id="cb1-4"><a href="" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> /health/wellness-tips ✅</span></span>
+<span id="cb1-5"><a href="" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> /adult-content ❌</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th><strong>Traditional filters</strong></th>
+<th><strong>CWCM</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>All or nothing</td>
+<td>Content-aware decisions</td>
+</tr>
+</tbody>
+</table>
 </section>
 <section class="slide level2">
 
@@ -293,36 +312,8 @@ Mingjia ‘Jacky’ Guan
 </section>
 <section id="machine-learning-evolution-in-nlp" class="slide level2">
 <h2>Machine Learning Evolution in NLP</h2>
-<div class="cell" data-layout-align="default">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb3-1"><a href="" aria-hidden="true" tabindex="-1"></a>timeline</span>
-<span id="cb3-2"><a href="" aria-hidden="true" tabindex="-1"></a>    title ML Approaches for Text Classification</span>
-<span id="cb3-3"><a href="" aria-hidden="true" tabindex="-1"></a>    2000s : Traditional ML</span>
-<span id="cb3-4"><a href="" aria-hidden="true" tabindex="-1"></a>           : Logistic Regression</span>
-<span id="cb3-5"><a href="" aria-hidden="true" tabindex="-1"></a>           : Support Vector Machines</span>
-<span id="cb3-6"><a href="" aria-hidden="true" tabindex="-1"></a>           : Naive Bayes</span>
-<span id="cb3-7"><a href="" aria-hidden="true" tabindex="-1"></a>    2010s : Advanced ML</span>
-<span id="cb3-8"><a href="" aria-hidden="true" tabindex="-1"></a>           : Random Forest</span>
-<span id="cb3-9"><a href="" aria-hidden="true" tabindex="-1"></a>           : XGBoost</span>
-<span id="cb3-10"><a href="" aria-hidden="true" tabindex="-1"></a>           : LightGBM</span>
-<span id="cb3-11"><a href="" aria-hidden="true" tabindex="-1"></a>    2015s : Deep Learning</span>
-<span id="cb3-12"><a href="" aria-hidden="true" tabindex="-1"></a>           : RNN/LSTM</span>
-<span id="cb3-13"><a href="" aria-hidden="true" tabindex="-1"></a>           : Word2Vec</span>
-<span id="cb3-14"><a href="" aria-hidden="true" tabindex="-1"></a>           : GloVe</span>
-<span id="cb3-15"><a href="" aria-hidden="true" tabindex="-1"></a>    2017+ : Transformer Era</span>
-<span id="cb3-16"><a href="" aria-hidden="true" tabindex="-1"></a>           : BERT</span>
-<span id="cb3-17"><a href="" aria-hidden="true" tabindex="-1"></a>           : RoBERTa</span>
-<span id="cb3-18"><a href="" aria-hidden="true" tabindex="-1"></a>           : DistilBERT</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<p></p><figure class=""><p></p>
-<div>
 
-</div>
-<p></p></figure><p></p>
-</div>
-</div>
-</div>
-</section>
+<img data-src="figures/m2.svg" class="r-stretch quarto-figure-center"><p class="caption">Evolution of Machine Learning over time</p></section>
 <section id="model-comparison-framework" class="slide level2">
 <h2>Model Comparison Framework</h2>
 <table class="caption-top">
@@ -353,6 +344,27 @@ Mingjia ‘Jacky’ Guan
 <td>No probabilities</td>
 <td>✅ Client-side</td>
 </tr>
+</tbody>
+</table>
+</section>
+<section id="model-comparison-framework-1" class="slide level2">
+<h2>Model Comparison Framework</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 22%">
+<col style="width: 25%">
+<col style="width: 26%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Approach</strong></th>
+<th><strong>Advantages</strong></th>
+<th><strong>Limitations</strong></th>
+<th><strong>Deployment</strong></th>
+</tr>
+</thead>
+<tbody>
 <tr class="odd">
 <td><strong>XGBoost</strong></td>
 <td>Non-linear patterns</td>
@@ -378,27 +390,48 @@ Mingjia ‘Jacky’ Guan
 </section>
 <section id="current-cwcm-limitations" class="slide level2">
 <h2>Current CWCM Limitations</h2>
-<div class="columns">
-<div class="column" style="width:60%;">
 <h3 id="performance-issues">Performance Issues</h3>
 <ul>
 <li>Poor detection of subtle harmful content</li>
-<li>Fails on searches like “I want to eat heroin”</li>
+<li>Fails on searches like “I want to eat heroin” (我想吃海洛因)</li>
 <li>Limited contextual understanding</li>
-<li>Outdated training data</li>
+<li>Outdated training data (2022)</li>
 </ul>
+</section>
+<section class="slide level2">
+
 <h3 id="technical-constraints">Technical Constraints</h3>
 <ul>
-<li><strong>Must maintain</strong>: Real-time inference</li>
-<li><strong>Must maintain</strong>: Resource efficiency</li>
-<li><strong>Must work</strong>: On school Chromebooks</li>
-<li><strong>Must support</strong>: Dual-language deployment</li>
+<li><strong>Maintain</strong>: &lt;200ms inference time</li>
+<li><strong>Works</strong>: On school Chromebooks</li>
+<li><strong>Enhances</strong>: Previous model performance on <em>Drugs, Tobacco, and Weapons</em>.</li>
 </ul>
-</div><div class="column" style="width:40%;">
+</section>
+<section class="slide level2">
+
 <h3 id="target-categories">Target Categories</h3>
-<p><strong>Harmful</strong> 🚫 - Drugs - Tobacco<br>
-- Weapons - Adult Content - Violence - Self-harm</p>
-<p><strong>Safe</strong> ✅ - Education - News - Science - Arts</p>
+<div class="columns">
+<div class="column">
+<p><strong>Harmful</strong> 🚫</p>
+<ul>
+<li class="fragment">Drugs</li>
+<li class="fragment">Tobacco<br>
+</li>
+<li class="fragment">Weapons</li>
+<li class="fragment">Adult Content</li>
+<li class="fragment">Violence</li>
+<li class="fragment">Self-harm</li>
+<li class="fragment">etc.</li>
+</ul>
+</div><div class="column">
+<p><strong>Safe</strong> ✅</p>
+<ul>
+<li class="fragment">Education</li>
+<li class="fragment">News</li>
+<li class="fragment">Science</li>
+<li class="fragment">Arts</li>
+<li class="fragment">etc.</li>
+</ul>
 </div></div>
 </section>
 <section id="project-objectives" class="slide level2">
@@ -422,23 +455,32 @@ Mingjia ‘Jacky’ Guan
 </section>
 <section id="data-collection-strategy" class="slide level2">
 <h2>Data Collection Strategy</h2>
-<div class="columns">
-<div class="column" style="width:50%;">
 <h3 id="phase-1-data-audit">Phase 1: Data Audit</h3>
 <ul>
-<li>Relabeled existing URLs (P/H/U/I)</li>
+<li>Relabeled existing URLs (Pages/Hosts)</li>
 <li>Identified 6 categories with insufficient data</li>
-<li>Quality assessment using Gemini 2.5-Flash</li>
+<li>Initial assessment using Gemini 2.5-Flash</li>
+<li>Relabeled by hand to ensure quality</li>
 </ul>
+</section>
+<section class="slide level2">
+
 <h3 id="phase-2-automated-collection">Phase 2: Automated Collection</h3>
 <ul>
 <li>Selenium-based Google search crawler</li>
 <li>Keyword permutation strategy</li>
 <li>Random timing to avoid CAPTCHAs</li>
-<li>Domain extraction for host identification</li>
+<li>Domain extraction for potential host identification</li>
 </ul>
-</div><div class="column" style="width:50%;">
+</section>
+<section class="slide level2">
+
 <h3 id="collection-results">Collection Results</h3>
+
+<img data-src="figures/3_label_distribution_no_white.png" class="r-stretch quarto-figure-center"><p class="caption">Label Distribution for black category</p></section>
+<section class="slide level2">
+
+<h3 id="collection-results-1">Collection Results</h3>
 <table class="caption-top">
 <thead>
 <tr class="header">
@@ -474,69 +516,40 @@ Mingjia ‘Jacky’ Guan
 </tbody>
 </table>
 <p><strong>Final Dataset</strong>: 429,066 datapoints (76.1% harmless)</p>
-</div></div>
 </section>
 <section id="text-processing-pipeline" class="slide level2">
 <h2>Text Processing Pipeline</h2>
-<div class="cell" data-layout-align="default">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb4-1"><a href="" aria-hidden="true" tabindex="-1"></a>flowchart LR</span>
-<span id="cb4-2"><a href="" aria-hidden="true" tabindex="-1"></a>    A[Raw HTML] --&gt; B[Text Extraction]</span>
-<span id="cb4-3"><a href="" aria-hidden="true" tabindex="-1"></a>    B --&gt; C[Jieba Segmentation]</span>
-<span id="cb4-4"><a href="" aria-hidden="true" tabindex="-1"></a>    C --&gt; D[Custom Dictionary]</span>
-<span id="cb4-5"><a href="" aria-hidden="true" tabindex="-1"></a>    D --&gt; E[TF-IDF Vectorization]</span>
-<span id="cb4-6"><a href="" aria-hidden="true" tabindex="-1"></a>    E --&gt; F[Feature Selection]</span>
-<span id="cb4-7"><a href="" aria-hidden="true" tabindex="-1"></a>    F --&gt; G[Model Training]</span>
-<span id="cb4-8"><a href="" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb4-9"><a href="" aria-hidden="true" tabindex="-1"></a>    C --&gt; H[dict.txt.big&lt;br/&gt;Traditional + Simplified]</span>
-<span id="cb4-10"><a href="" aria-hidden="true" tabindex="-1"></a>    D --&gt; I[TextRank + TF-IDF&lt;br/&gt;Top 200 per category]</span>
-<span id="cb4-11"><a href="" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb4-12"><a href="" aria-hidden="true" tabindex="-1"></a>    style A fill:#ffebee</span>
-<span id="cb4-13"><a href="" aria-hidden="true" tabindex="-1"></a>    style G fill:#e8f5e8</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<p></p><figure class=""><p></p>
-<div>
 
-</div>
-<p></p></figure><p></p>
-</div>
-</div>
-</div>
+<img data-src="figures/m3.svg" class="r-stretch"><ul>
+<li>Text extracted using production server clone</li>
+<li>Custom dictionary constructed for vectorization</li>
+<li>Vectorization strategy: TF-IDF</li>
+</ul>
 </section>
 <section id="feature-engineering" class="slide level2">
 <h2>Feature Engineering</h2>
-<div class="columns">
-<div class="column" style="width:50%;">
 <h3 id="dictionary-construction">Dictionary Construction</h3>
 <ul>
-<li><strong>TextRank</strong>: Top 200 features per category</li>
-<li><strong>TF-IDF</strong>: Top 200 features per category<br>
-</li>
+<li><strong>TextRank</strong> and <strong>TF-IDF</strong>: Top 200 features per category</li>
 <li><strong>Jaccard Similarity</strong>: ~0.27 between methods</li>
+<li><strong>White</strong>: 2500 most relevant features</li>
 <li><strong>Final Dictionary</strong>: 4,783 features</li>
+<li><strong>Stopwords, Numbers, and Irrelevant Symbols</strong>: Removed</li>
 </ul>
+</section>
+<section class="slide level2">
+
 <h3 id="custom-preprocessing">Custom Preprocessing</h3>
 <ul>
-<li>Chinese phrase-based segmentation</li>
-<li>Stopword removal</li>
+<li>Chinese phrase-based segmentation <span class="citation" data-cites="jieba">(<a href="#/references" role="doc-biblioref" onclick="">fxsjy n.d.</a>)</span></li>
 <li>Standardization pipeline</li>
 <li>Category-specific weighting</li>
 </ul>
-</div><div class="column" style="width:50%;">
-<div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="co"># Feature Extraction Example</span></span>
-<span id="cb5-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> extract_features(text, category):</span>
-<span id="cb5-3"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Jieba segmentation</span></span>
-<span id="cb5-4"><a href="" aria-hidden="true" tabindex="-1"></a>    words <span class="op">=</span> jieba.cut_for_search(text)</span>
-<span id="cb5-5"><a href="" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb5-6"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Custom dictionary filtering</span></span>
-<span id="cb5-7"><a href="" aria-hidden="true" tabindex="-1"></a>    filtered_words <span class="op">=</span> filter_by_dict(words)</span>
-<span id="cb5-8"><a href="" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb5-9"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="co"># TF-IDF transformation</span></span>
-<span id="cb5-10"><a href="" aria-hidden="true" tabindex="-1"></a>    tfidf_vector <span class="op">=</span> vectorizer.transform([text])</span>
-<span id="cb5-11"><a href="" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb5-12"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> tfidf_vector</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div></div>
 </section>
+<section id="preprocessed-text-visualized" class="slide level2">
+<h2>Preprocessed Text Visualized</h2>
+
+<img data-src="figures/4_text_length_distributions.png" class="r-stretch quarto-figure-center"><p class="caption">Text Distributions</p></section>
 <section class="slide level2">
 
 </section></section>
@@ -548,17 +561,46 @@ Mingjia ‘Jacky’ Guan
 <section id="comprehensive-algorithm-evaluation" class="slide level2">
 <h2>Comprehensive Algorithm Evaluation</h2>
 <h3 id="initial-screening-34-algorithms">Initial Screening: 34+ Algorithms</h3>
-<div class="columns">
-<div class="column" style="width:60%;">
-<p><strong>Linear Methods</strong> - Logistic Regression - LinearSVC, PassiveAggressive<br>
-- Perceptron, SGD Classifier</p>
-<p><strong>Tree-based Methods</strong><br>
-- XGBoost, LightGBM - Random Forest, Extra Trees</p>
-<p><strong>Others</strong> - Naive Bayes variants - Neural Networks (MLP) - SVM with RBF kernel</p>
-</div><div class="column" style="width:40%;">
-<p><strong>Evaluation Protocol</strong> - 10-fold cross-validation - Macro-averaged F1-score - Statistical significance testing - Deployment feasibility assessment</p>
-</div></div>
+<p><strong>Linear Methods</strong></p>
+<ul>
+<li>Logistic Regression</li>
+<li>LinearSVC, PassiveAggressive<br>
+</li>
+<li>Perceptron, SGD Classifier</li>
+</ul>
+<p><strong>Tree-based Methods</strong></p>
+<ul>
+<li>XGBoost, LightGBM</li>
+<li>Random Forest, Extra Trees</li>
+</ul>
 </section>
+<section class="slide level2">
+
+<h3 id="initial-screening-34-algorithms-1">Initial Screening: 34+ Algorithms</h3>
+<p><strong>Others</strong></p>
+<ul>
+<li>Naive Bayes variants</li>
+<li>Neural Networks (MLP)</li>
+<li>SVM with RBF kernel</li>
+</ul>
+<p><strong>Evaluation Protocol</strong></p>
+<ul>
+<li>10-fold cross-validation</li>
+<li>Macro-averaged F1-score</li>
+<li>Statistical significance testing</li>
+<li>Deployment feasibility assessment</li>
+</ul>
+</section>
+<section class="slide level2">
+
+<h3 id="results">Results</h3>
+
+<img data-src="figures/10_simplified_performance_comparison.png" class="r-stretch quarto-figure-center"><p class="caption">Top 10 Agorithms (Default Parameters)</p></section>
+<section class="slide level2">
+
+<h3 id="results-1">Results</h3>
+
+<img data-src="figures/11_accuracy_vs_weighted_f1_zoomed.png" class="r-stretch quarto-figure-center"><p class="caption">Top 10 Agorithms (Default Parameters)</p></section>
 <section id="top-model-performance" class="slide level2">
 <h2>Top Model Performance</h2>
 <table class="caption-top">
@@ -597,28 +639,39 @@ Mingjia ‘Jacky’ Guan
 </tr>
 </tbody>
 </table>
-<p><strong>Winner</strong>: Logistic Regression (best macro F1 + explainability)</p>
+<p><strong>Ideal Candidate</strong>: Logistic Regression (best macro F1 + explainability)</p>
 </section>
 <section id="hyperparameter-optimization" class="slide level2">
 <h2>Hyperparameter Optimization</h2>
-<div class="columns">
-<div class="column" style="width:50%;">
 <h3 id="search-strategy">Search Strategy</h3>
 <ul>
-<li><strong>RandomSearchCV</strong>: Initial exploration</li>
+<li><strong>RandomSearchCV/BayesSearchCV</strong>: Initial exploration with reduced dataset</li>
 <li><strong>GridSearchCV</strong>: Fine-tuning</li>
-<li><strong>BayesSearchCV</strong>: Optimization</li>
 <li><strong>Custom weights</strong>: Class imbalance handling</li>
+<li><strong>Multiple Machines/Parallelization</strong>: For Training Speedup</li>
 </ul>
+</section>
+<section id="model-comparison" class="slide level2">
+<h2>Model Comparison</h2>
+
+<img data-src="figures/28_v4.9.1_combined_comparison_f1-score.png" class="r-stretch quarto-figure-center"><p class="caption">XGBoost, LinearSVC, and LogisticRegression</p></section>
+<section id="model-comparison-1" class="slide level2">
+<h2>Model Comparison</h2>
+
+<img data-src="figures/29_v4.9.2_combined_comparison_f1-score.png" class="r-stretch quarto-figure-center"><p class="caption">Logistic Regression Version Comparison</p></section>
+<section class="slide level2">
+
 <h3 id="final-configuration">Final Configuration</h3>
-<div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="" aria-hidden="true" tabindex="-1"></a>LogisticRegression(</span>
-<span id="cb6-2"><a href="" aria-hidden="true" tabindex="-1"></a>    C<span class="op">=</span><span class="fl">220.77</span>,           <span class="co"># Regularization</span></span>
-<span id="cb6-3"><a href="" aria-hidden="true" tabindex="-1"></a>    penalty<span class="op">=</span><span class="st">'l2'</span>,       <span class="co"># Ridge regularization  </span></span>
-<span id="cb6-4"><a href="" aria-hidden="true" tabindex="-1"></a>    multi_class<span class="op">=</span><span class="st">'multinomial'</span>,</span>
-<span id="cb6-5"><a href="" aria-hidden="true" tabindex="-1"></a>    solver<span class="op">=</span><span class="st">'saga'</span>,      <span class="co"># Scalability</span></span>
-<span id="cb6-6"><a href="" aria-hidden="true" tabindex="-1"></a>    max_iter<span class="op">=</span><span class="dv">154</span>       <span class="co"># Early convergence</span></span>
-<span id="cb6-7"><a href="" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div><div class="column" style="width:50%;">
+<div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="" aria-hidden="true" tabindex="-1"></a>LogisticRegression(</span>
+<span id="cb2-2"><a href="" aria-hidden="true" tabindex="-1"></a>    C<span class="op">=</span><span class="fl">220.77</span>,           <span class="co"># Regularization</span></span>
+<span id="cb2-3"><a href="" aria-hidden="true" tabindex="-1"></a>    penalty<span class="op">=</span><span class="st">'l2'</span>,       <span class="co"># Ridge regularization  </span></span>
+<span id="cb2-4"><a href="" aria-hidden="true" tabindex="-1"></a>    multi_class<span class="op">=</span><span class="st">'multinomial'</span>,</span>
+<span id="cb2-5"><a href="" aria-hidden="true" tabindex="-1"></a>    solver<span class="op">=</span><span class="st">'saga'</span>,      <span class="co"># Scalability</span></span>
+<span id="cb2-6"><a href="" aria-hidden="true" tabindex="-1"></a>    max_iter<span class="op">=</span><span class="dv">154</span>       <span class="co"># Early convergence</span></span>
+<span id="cb2-7"><a href="" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section class="slide level2">
+
 <h3 id="performance-evolution">Performance Evolution</h3>
 <table class="caption-top">
 <thead>
@@ -652,85 +705,57 @@ Mingjia ‘Jacky’ Guan
 </tbody>
 </table>
 <p><strong>V5</strong>: Production model with optimal precision-recall balance</p>
-</div></div>
 </section>
 <section class="slide level2">
 
 </section></section>
 <section>
-<section id="results" class="title-slide slide level1 center" data-background-color="#0891b2">
+<section id="results-2" class="title-slide slide level1 center" data-background-color="#0891b2">
 <h1>Results</h1>
 
 </section>
+<section id="final-model-performance-by-category" class="slide level2">
+<h2>Final Model Performance by Category</h2>
+
+<img data-src="figures/26_v5_per_class_metrics_train_test.png" class="r-stretch quarto-figure-center"><p class="caption">V5 Model Performance (Macro-Averaged F1, Recall, and Precision)</p></section>
 <section id="statistical-performance-validation" class="slide level2">
 <h2>Statistical Performance Validation</h2>
+<h3 id="logistic-regression-vs">Logistic Regression vs</h3>
 <div class="columns">
-<div class="column" style="width:50%;">
-<h3 id="logistic-regression-vs-baselines">Logistic Regression vs Baselines</h3>
-<p><strong>vs XGBoost</strong> (n=130) - Mean F1: 0.9155 vs 0.9183 - t-statistic: -7.60<br>
-- p-value: &lt; 0.000001 ⭐ - Cohen’s d: -0.67 (medium effect)</p>
-<p><strong>vs LinearSVC</strong> (n=66)<br>
-- Mean F1: 0.9059 vs 0.9183 - t-statistic: -9.05 - p-value: &lt; 0.000001 ⭐<br>
-- Cohen’s d: -1.11 (large effect)</p>
-</div><div class="column" style="width:50%;">
-<h3 id="performance-by-category">Performance by Category</h3>
-<table class="caption-top">
-<thead>
-<tr class="header">
-<th><strong>Category</strong></th>
-<th><strong>F1</strong></th>
-<th><strong>Support</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Alcohol</td>
-<td>0.997</td>
-<td>1,441</td>
-</tr>
-<tr class="even">
-<td>Tobacco</td>
-<td>0.992</td>
-<td>504</td>
-</tr>
-<tr class="odd">
-<td>Adult</td>
-<td>0.967</td>
-<td>594</td>
-</tr>
-<tr class="even">
-<td>Games</td>
-<td>0.986</td>
-<td>702</td>
-</tr>
-<tr class="odd">
-<td>Violence</td>
-<td>0.863</td>
-<td>273</td>
-</tr>
-<tr class="even">
-<td>Drugs</td>
-<td>0.871</td>
-<td>247</td>
-</tr>
-<tr class="odd">
-<td>Self-harm</td>
-<td>0.903</td>
-<td>81</td>
-</tr>
-<tr class="even">
-<td><strong>Macro Avg</strong></td>
-<td><strong>0.918</strong></td>
-<td>-</td>
-</tr>
-</tbody>
-</table>
+<div class="column">
+<h3 id="xgboost-n130">XGBoost (n=130)</h3>
+<ul>
+<li><strong>Mean F1:</strong> 0.9155 vs 0.9183<br>
+</li>
+<li><strong>t-statistic:</strong> -7.60<br>
+</li>
+<li><strong>p-value:</strong> &lt; 0.000001 ⭐<br>
+</li>
+<li><strong>Cohen’s d:</strong> -0.67 (medium effect)</li>
+</ul>
+</div><div class="column">
+<h3 id="linearsvc-n66">LinearSVC (n=66)</h3>
+<ul>
+<li><strong>Mean F1:</strong> 0.9059 vs 0.9183<br>
+</li>
+<li><strong>t-statistic:</strong> -9.05<br>
+</li>
+<li><strong>p-value:</strong> &lt; 0.000001 ⭐<br>
+</li>
+<li><strong>Cohen’s d:</strong> -1.11 (large effect)</li>
+</ul>
 </div></div>
 </section>
+<section id="statistical-significance" class="slide level2">
+<h2>Statistical Significance</h2>
+
+<img data-src="figures/30_4.9.4-xgb.png" class="r-stretch quarto-figure-center"><p class="caption">XGBoost</p></section>
+<section id="statistical-significance-1" class="slide level2">
+<h2>Statistical Significance</h2>
+
+<img data-src="figures/30_4.9.4-svm.png" class="r-stretch quarto-figure-center"><p class="caption">LinearSVC</p></section>
 <section id="dataset-size-impact-analysis" class="slide level2">
 <h2>Dataset Size Impact Analysis</h2>
-<div class="columns">
-<div class="column" style="width:60%;">
 <h3 id="correlation-findings">Correlation Findings</h3>
 <ul>
 <li><strong>F1 vs log(sample size)</strong>: ρ = 0.687, p = 0.0095 ⭐</li>
@@ -739,31 +764,6 @@ Mingjia ‘Jacky’ Guan
 <li><strong>Precision vs log(sample size)</strong>: ρ = 0.550, p = 0.052</li>
 </ul>
 <p><strong>Key Insight</strong>: Strong evidence that larger datasets improve performance, especially for recall metrics.</p>
-</div><div class="column" style="width:40%;">
-<div class="cell" data-layout-align="default">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb7-1"><a href="" aria-hidden="true" tabindex="-1"></a>scatterplot:</span>
-<span id="cb7-2"><a href="" aria-hidden="true" tabindex="-1"></a>    title "F1 Score vs Dataset Size"</span>
-<span id="cb7-3"><a href="" aria-hidden="true" tabindex="-1"></a>    x-axis [Log Sample Size] 5 --&gt; 10</span>
-<span id="cb7-4"><a href="" aria-hidden="true" tabindex="-1"></a>    y-axis [F1 Score] 0.8 --&gt; 1.0</span>
-<span id="cb7-5"><a href="" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb7-6"><a href="" aria-hidden="true" tabindex="-1"></a>    alcohol: [9.97, 0.997]</span>
-<span id="cb7-7"><a href="" aria-hidden="true" tabindex="-1"></a>    tobacco: [8.53, 0.992]  </span>
-<span id="cb7-8"><a href="" aria-hidden="true" tabindex="-1"></a>    adult: [9.38, 0.967]</span>
-<span id="cb7-9"><a href="" aria-hidden="true" tabindex="-1"></a>    games: [9.55, 0.986]</span>
-<span id="cb7-10"><a href="" aria-hidden="true" tabindex="-1"></a>    violence: [8.61, 0.863]</span>
-<span id="cb7-11"><a href="" aria-hidden="true" tabindex="-1"></a>    drugs: [8.51, 0.871]</span>
-<span id="cb7-12"><a href="" aria-hidden="true" tabindex="-1"></a>    selfharm: [6.40, 0.903]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<p></p><figure class=""><p></p>
-<div>
-
-</div>
-<p></p></figure><p></p>
-</div>
-</div>
-</div>
-</div></div>
 </section>
 <section id="model-architecture-insights" class="slide level2">
 <h2>Model Architecture Insights</h2>
@@ -787,59 +787,34 @@ Mingjia ‘Jacky’ Guan
 </section>
 <section id="key-technical-decisions" class="slide level2">
 <h2>Key Technical Decisions</h2>
-<div class="columns">
-<div class="column" style="width:50%;">
-<h3 id="multinomial-vs-one-vs-rest">Multinomial vs One-vs-Rest</h3>
+<h3 id="multinomial-vs-ovr">Multinomial vs OVR</h3>
 <ul>
-<li><strong>Chosen</strong>: Multinomial approach</li>
-<li><strong>Rationale</strong>: Better empirical performance despite IIA assumption</li>
-<li><strong>Trade-off</strong>: Theoretical limitations vs practical gains</li>
+<li class="fragment"><strong>Chosen</strong>: Multinomial approach</li>
+<li class="fragment"><strong>Trade-off</strong>: Theoretical limitations and practical gains (overfitting)</li>
+<li class="fragment"><strong>Note</strong>: IIA assumption, One-Vs-Rest testing in progress</li>
+<li class="fragment"><strong>All Models</strong>: Heavily reliant on Feature Engineering</li>
 </ul>
-<h3 id="linear-vs-non-linear">Linear vs Non-linear</h3>
-<ul>
-<li><strong>Chosen</strong>: Linear (Logistic Regression)<br>
-</li>
-<li><strong>Rationale</strong>: Deployment constraints, consistency</li>
-<li><strong>Evidence</strong>: Non-linear models (XGBoost) showed overfitting</li>
-</ul>
-</div><div class="column" style="width:50%;">
-<h3 id="threshold-strategy">Threshold Strategy</h3>
-<div class="sourceCode" id="cb8"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb8-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">Category-Specific Calibration</span><span class="kw">:</span></span>
-<span id="cb8-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">High Precision (Games, Adult)</span><span class="kw">:</span><span class="at"> </span></span>
-<span id="cb8-3"><a href="" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">threshold</span><span class="kw">:</span><span class="at"> </span><span class="fl">0.8</span></span>
-<span id="cb8-4"><a href="" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">Balanced (Tobacco, Drugs)</span><span class="kw">:</span></span>
-<span id="cb8-5"><a href="" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">threshold</span><span class="kw">:</span><span class="at"> </span><span class="fl">0.5</span><span class="at">  </span></span>
-<span id="cb8-6"><a href="" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">High Recall (Self-harm)</span><span class="kw">:</span></span>
-<span id="cb8-7"><a href="" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">threshold</span><span class="kw">:</span><span class="at"> </span><span class="fl">0.3</span><span class="co">  # Safety priority</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div></div>
 </section>
+<section class="slide level2">
+
+<h3 id="linear-or-no-linear">Linear or No Linear?</h3>
+<ul>
+<li class="fragment"><strong>Chosen</strong>: Linear (Logistic Regression)<br>
+</li>
+<li class="fragment"><strong>Rationale</strong>: Deployment constraints, consistency</li>
+<li class="fragment"><strong>Evidence</strong>: Non-linear models (XGBoost) showed overfitting</li>
+<li class="fragment"><strong>Limitations</strong>: LinearSVC difficult to explain, poor performance from other models.</li>
+</ul>
+</section>
+<section id="result-tuning-with-ovr" class="slide level2">
+<h2>Result Tuning with OVR</h2>
+
+<img data-src="figures/eda_recall-fp_old_model.png" class="r-stretch quarto-figure-center"><p class="caption">Former Configurations for Softmax Output</p></section>
 <section id="production-considerations" class="slide level2">
 <h2>Production Considerations</h2>
 <h3 id="deployment-architecture">Deployment Architecture</h3>
-<div class="cell" data-layout-align="default">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb9-1"><a href="" aria-hidden="true" tabindex="-1"></a>graph LR</span>
-<span id="cb9-2"><a href="" aria-hidden="true" tabindex="-1"></a>    A[Student Device] --&gt; B[Chrome Extension]</span>
-<span id="cb9-3"><a href="" aria-hidden="true" tabindex="-1"></a>    B --&gt; C[CWCM Model]</span>
-<span id="cb9-4"><a href="" aria-hidden="true" tabindex="-1"></a>    C --&gt; D[JavaScript Inference]</span>
-<span id="cb9-5"><a href="" aria-hidden="true" tabindex="-1"></a>    D --&gt; E[Real-time Decision]</span>
-<span id="cb9-6"><a href="" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb9-7"><a href="" aria-hidden="true" tabindex="-1"></a>    F[Optional: CWCM-V2] --&gt; G[Transformer Analysis]</span>
-<span id="cb9-8"><a href="" aria-hidden="true" tabindex="-1"></a>    G --&gt; H[Refined Classification]</span>
-<span id="cb9-9"><a href="" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb9-10"><a href="" aria-hidden="true" tabindex="-1"></a>    style A fill:#e3f2fd</span>
-<span id="cb9-11"><a href="" aria-hidden="true" tabindex="-1"></a>    style E fill:#c8e6c9</span>
-<span id="cb9-12"><a href="" aria-hidden="true" tabindex="-1"></a>    style H fill:#fff3e0</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<p></p><figure class=""><p></p>
-<div>
 
-</div>
-<p></p></figure><p></p>
-</div>
-</div>
-</div>
-<p><strong>Benefits</strong>: No API costs, privacy-first, sub-100ms latency</p>
+<img data-src="figures/m4.svg" class="r-stretch quarto-figure-center"><p class="caption">Current and Future Model Deployment Strategy</p><p><strong>Benefits</strong>: No API costs, privacy-first, sub-100ms latency</p>
 </section>
 <section class="slide level2">
 
@@ -851,8 +826,6 @@ Mingjia ‘Jacky’ Guan
 </section>
 <section id="balancing-safety-and-access" class="slide level2">
 <h2>Balancing Safety and Access</h2>
-<div class="columns">
-<div class="column" style="width:50%;">
 <h3 id="privacy-protection">Privacy Protection</h3>
 <ul>
 <li><strong>Client-side processing</strong>: No data leaves device</li>
@@ -860,6 +833,9 @@ Mingjia ‘Jacky’ Guan
 <li><strong>ISO 27001 compliance</strong>: Security standards</li>
 <li><strong>Transparency</strong>: Clear administrator controls</li>
 </ul>
+</section>
+<section class="slide level2">
+
 <h3 id="bias-mitigation">Bias Mitigation</h3>
 <ul>
 <li><strong>Cultural sensitivity</strong>: Taiwan-specific content</li>
@@ -867,12 +843,27 @@ Mingjia ‘Jacky’ Guan
 <li><strong>Threshold flexibility</strong>: Local customization</li>
 <li><strong>Continuous evaluation</strong>: Real-world feedback</li>
 </ul>
-</div><div class="column" style="width:50%;">
+</section>
+<section class="slide level2">
+
 <h3 id="content-classification-ethics">Content Classification Ethics</h3>
-<p><strong>Challenges</strong> - Subjective nature of “harmful” - Cultural context dependency - Over-censorship risks - Educational access balance</p>
-<p><strong>Solutions</strong><br>
-- Administrator override capabilities - Category-specific tuning - Dual-layer architecture (CWCM + V2) - Regular policy review processes</p>
-</div></div>
+<p><strong>Challenges</strong></p>
+<ul>
+<li>Subjective nature of “harmful”</li>
+<li>Cultural context dependency</li>
+<li>Over-censorship risks</li>
+<li>Educational access balance</li>
+</ul>
+</section>
+<section class="slide level2">
+
+<p><strong>Solutions</strong></p>
+<ul>
+<li>Administrator override capabilities</li>
+<li>Category-specific tuning</li>
+<li>Dual-layer architecture (CWCM + V2)</li>
+<li>Regular policy review processes</li>
+</ul>
 </section>
 <section id="public-health-justification" class="slide level2">
 <h2>Public Health Justification</h2>
@@ -895,8 +886,6 @@ Mingjia ‘Jacky’ Guan
 </section>
 <section id="cwcm-v2-development" class="slide level2">
 <h2>CWCM-V2 Development</h2>
-<div class="columns">
-<div class="column" style="width:60%;">
 <h3 id="transformer-integration">Transformer Integration</h3>
 <ul>
 <li><strong>Architecture</strong>: BERT-based secondary layer</li>
@@ -904,6 +893,9 @@ Mingjia ‘Jacky’ Guan
 <li><strong>Deployment</strong>: High-precision refinement of CWCM decisions</li>
 <li><strong>Target</strong>: Complex semantic relationships</li>
 </ul>
+</section>
+<section class="slide level2">
+
 <h3 id="technical-roadmap">Technical Roadmap</h3>
 <ol type="1">
 <li><strong>Phase 1</strong>: CWCM production deployment<br>
@@ -912,32 +904,12 @@ Mingjia ‘Jacky’ Guan
 <li><strong>Phase 3</strong>: Dual-layer integration</li>
 <li><strong>Phase 4</strong>: Performance optimization</li>
 </ol>
-</div><div class="column" style="width:40%;">
-<div class="cell" data-layout-align="default">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb10-1"><a href="" aria-hidden="true" tabindex="-1"></a>graph TD</span>
-<span id="cb10-2"><a href="" aria-hidden="true" tabindex="-1"></a>    A[Web Content] --&gt; B[CWCM Layer 1]</span>
-<span id="cb10-3"><a href="" aria-hidden="true" tabindex="-1"></a>    B --&gt; C{High Confidence?}</span>
-<span id="cb10-4"><a href="" aria-hidden="true" tabindex="-1"></a>    C --&gt;|Yes| D[Allow/Block]</span>
-<span id="cb10-5"><a href="" aria-hidden="true" tabindex="-1"></a>    C --&gt;|No| E[CWCM-V2 Layer 2]</span>
-<span id="cb10-6"><a href="" aria-hidden="true" tabindex="-1"></a>    E --&gt; F[Transformer Analysis]</span>
-<span id="cb10-7"><a href="" aria-hidden="true" tabindex="-1"></a>    F --&gt; G[Final Decision]</span>
-<span id="cb10-8"><a href="" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb10-9"><a href="" aria-hidden="true" tabindex="-1"></a>    style B fill:#fef3c7</span>
-<span id="cb10-10"><a href="" aria-hidden="true" tabindex="-1"></a>    style F fill:#ddd6fe</span>
-<span id="cb10-11"><a href="" aria-hidden="true" tabindex="-1"></a>    style D fill:#d1fae5</span>
-<span id="cb10-12"><a href="" aria-hidden="true" tabindex="-1"></a>    style G fill:#d1fae5</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<p></p><figure class=""><p></p>
-<div>
-
-</div>
-<p></p></figure><p></p>
-</div>
-</div>
-</div>
-</div></div>
 </section>
+<section class="slide level2">
+
+<h3 id="technical-roadmap-1">Technical Roadmap</h3>
+
+<img data-src="figures/m5.svg" class="r-stretch quarto-figure-center"><p class="caption">Final Vision</p></section>
 <section id="research-extensions" class="slide level2">
 <h2>Research Extensions</h2>
 <h3 id="immediate-improvements">Immediate Improvements</h3>
@@ -947,6 +919,9 @@ Mingjia ‘Jacky’ Guan
 <li><strong>Threshold optimization</strong>: Production-based calibration</li>
 <li><strong>Ensemble methods</strong>: Multiple linear model combinations</li>
 </ul>
+</section>
+<section class="slide level2">
+
 <h3 id="long-term-vision">Long-term Vision</h3>
 <ul>
 <li><strong>Multilingual support</strong>: Beyond Traditional Chinese</li>
@@ -973,8 +948,6 @@ Mingjia ‘Jacky’ Guan
 </section>
 <section id="impact-and-contribution" class="slide level2">
 <h2>Impact and Contribution</h2>
-<div class="columns">
-<div class="column" style="width:50%;">
 <h3 id="educational-technology">Educational Technology</h3>
 <ul>
 <li>Effective Chinese content filtering for K-12</li>
@@ -983,13 +956,18 @@ Mingjia ‘Jacky’ Guan
 <li>Privacy-first architecture</li>
 <li>Real-time protection without over-censorship</li>
 </ul>
-<h3 id="research-contribution">Research Contribution</h3>
+</section>
+<section class="slide level2">
+
+<h3 id="contribution">Contribution</h3>
 <ul>
 <li>Systematic evaluation of 34+ ML algorithms for Chinese text classification</li>
 <li>Statistical framework for model selection in educational contexts</li>
 <li>Empirical evidence for data collection prioritization strategies</li>
 </ul>
-</div><div class="column" style="width:50%;">
+</section>
+<section class="slide level2">
+
 <h3 id="technical-innovation">Technical Innovation</h3>
 <ul>
 <li>Custom TF-IDF dictionary construction</li>
@@ -997,49 +975,90 @@ Mingjia ‘Jacky’ Guan
 <li>Client-side transformer preparation</li>
 <li>Dual-layer architecture foundation</li>
 </ul>
+</section>
+<section class="slide level2">
+
 <h3 id="broader-implications">Broader Implications</h3>
 <ul>
 <li>Replicable framework for multilingual content filtering</li>
 <li>Balance of accuracy, efficiency, and ethics</li>
 <li>Foundation for next-generation educational AI systems</li>
 </ul>
-</div></div>
 </section>
 <section id="thank-you" class="slide level2" data-background-color="#064e3b">
 <h2>Thank You</h2>
 <h3 id="questions-discussion">Questions &amp; Discussion</h3>
-<p><strong>Contact Information:</strong> - Mingjia “Jacky” Guan - Senior Project - Chinese Web Classification Model - August 21, 2025</p>
-<p><strong>Key Resources:</strong> - <strong>GitHub</strong>: Model implementation and documentation - <strong>Production</strong>: Taiwan K-12 deployment ready - <strong>Future</strong>: CWCM-V2 transformer integration</p>
+<p><strong>Contact Information:</strong></p>
+<ul>
+<li>Mingjia “Jacky” Guan</li>
+<li>Senior Project - Chinese Web Classification Model</li>
+<li>August 21, 2025</li>
+</ul>
+<p><strong>Key Resources:</strong></p>
+<ul>
+<li><strong>GitHub</strong>: Model implementation and documentation</li>
+<li><strong>Production</strong>: Taiwan K-12 deployment</li>
+<li><strong>Future</strong>: CWCM-V2 transformer integration</li>
+</ul>
 </section>
 <section class="slide level2">
 
 <h3 class="smaller" id="appendix-technical-details">Appendix: Technical Details</h3>
 <h4 id="model-performance-matrix">Model Performance Matrix</h4>
-<div class="sourceCode" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="co"># Final Model Configuration</span></span>
-<span id="cb11-2"><a href="" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> LogisticRegression(</span>
-<span id="cb11-3"><a href="" aria-hidden="true" tabindex="-1"></a>    C<span class="op">=</span><span class="fl">220.77</span>,</span>
-<span id="cb11-4"><a href="" aria-hidden="true" tabindex="-1"></a>    penalty<span class="op">=</span><span class="st">'l2'</span>, </span>
-<span id="cb11-5"><a href="" aria-hidden="true" tabindex="-1"></a>    multi_class<span class="op">=</span><span class="st">'multinomial'</span>,</span>
-<span id="cb11-6"><a href="" aria-hidden="true" tabindex="-1"></a>    solver<span class="op">=</span><span class="st">'saga'</span>,</span>
-<span id="cb11-7"><a href="" aria-hidden="true" tabindex="-1"></a>    class_weight<span class="op">=</span><span class="st">'balanced'</span>,</span>
-<span id="cb11-8"><a href="" aria-hidden="true" tabindex="-1"></a>    random_state<span class="op">=</span><span class="dv">42</span></span>
-<span id="cb11-9"><a href="" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb11-10"><a href="" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-11"><a href="" aria-hidden="true" tabindex="-1"></a><span class="co"># Performance Metrics</span></span>
-<span id="cb11-12"><a href="" aria-hidden="true" tabindex="-1"></a>metrics <span class="op">=</span> {</span>
-<span id="cb11-13"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="st">'f1_macro'</span>: <span class="fl">0.9183</span>,</span>
-<span id="cb11-14"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="st">'precision_macro'</span>: <span class="fl">0.9341</span>, </span>
-<span id="cb11-15"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="st">'recall_macro'</span>: <span class="fl">0.9040</span>,</span>
-<span id="cb11-16"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="st">'accuracy'</span>: <span class="fl">0.9840</span></span>
-<span id="cb11-17"><a href="" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="co"># Final Model Configuration</span></span>
+<span id="cb3-2"><a href="" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> LogisticRegression(</span>
+<span id="cb3-3"><a href="" aria-hidden="true" tabindex="-1"></a>    C<span class="op">=</span><span class="fl">220.77</span>,</span>
+<span id="cb3-4"><a href="" aria-hidden="true" tabindex="-1"></a>    penalty<span class="op">=</span><span class="st">'l2'</span>, </span>
+<span id="cb3-5"><a href="" aria-hidden="true" tabindex="-1"></a>    multi_class<span class="op">=</span><span class="st">'multinomial'</span>,</span>
+<span id="cb3-6"><a href="" aria-hidden="true" tabindex="-1"></a>    solver<span class="op">=</span><span class="st">'saga'</span>,</span>
+<span id="cb3-7"><a href="" aria-hidden="true" tabindex="-1"></a>    class_weight<span class="op">=</span><span class="st">'balanced'</span>,</span>
+<span id="cb3-8"><a href="" aria-hidden="true" tabindex="-1"></a>    random_state<span class="op">=</span><span class="dv">42</span></span>
+<span id="cb3-9"><a href="" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb3-10"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="" aria-hidden="true" tabindex="-1"></a><span class="co"># Performance Metrics</span></span>
+<span id="cb3-12"><a href="" aria-hidden="true" tabindex="-1"></a>metrics <span class="op">=</span> {</span>
+<span id="cb3-13"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="st">'f1_macro'</span>: <span class="fl">0.9183</span>,</span>
+<span id="cb3-14"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="st">'precision_macro'</span>: <span class="fl">0.9341</span>, </span>
+<span id="cb3-15"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="st">'recall_macro'</span>: <span class="fl">0.9040</span>,</span>
+<span id="cb3-16"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="st">'accuracy'</span>: <span class="fl">0.9840</span></span>
+<span id="cb3-17"><a href="" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <h4 id="feature-engineering-pipeline">Feature Engineering Pipeline</h4>
-<div class="sourceCode" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="co"># Custom Dictionary Construction  </span></span>
-<span id="cb12-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> build_feature_dict():</span>
-<span id="cb12-3"><a href="" aria-hidden="true" tabindex="-1"></a>    textrank_features <span class="op">=</span> extract_textrank_top200()</span>
-<span id="cb12-4"><a href="" aria-hidden="true" tabindex="-1"></a>    tfidf_features <span class="op">=</span> extract_tfidf_top200() </span>
-<span id="cb12-5"><a href="" aria-hidden="true" tabindex="-1"></a>    final_dict <span class="op">=</span> union(textrank_features, tfidf_features)</span>
-<span id="cb12-6"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> final_dict  <span class="co"># 4,783 total features</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="co"># Custom Dictionary Construction  </span></span>
+<span id="cb4-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> build_feature_dict():</span>
+<span id="cb4-3"><a href="" aria-hidden="true" tabindex="-1"></a>    textrank_features <span class="op">=</span> extract_textrank_top200()</span>
+<span id="cb4-4"><a href="" aria-hidden="true" tabindex="-1"></a>    tfidf_features <span class="op">=</span> extract_tfidf_top200() </span>
+<span id="cb4-5"><a href="" aria-hidden="true" tabindex="-1"></a>    final_dict <span class="op">=</span> union(textrank_features, tfidf_features)</span>
+<span id="cb4-6"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> final_dict  <span class="co"># 4,783 total features</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section class="slide level2 smaller scrollable" id="references">
 
+
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-connected_nation_2023_school_connectivity" class="csl-entry" role="listitem">
+Connected Nation, and Funds For Learning. 2023. <span>“2023 Report on School Connectivity: Equipping School Leaders with the Insight They Need to Enable Immersive Digital Learning Opportunities in Every Classroom, Every Day.”</span> Connected Nation. <a href="https://connectk12.org">https://connectk12.org</a>.
+</div>
+<div id="ref-jieba" class="csl-entry" role="listitem">
+fxsjy. n.d. <span>“<span class="nocase">jieba: Chinese text segmentation</span>.”</span> <a href="https://github.com/fxsjy/jieba">https://github.com/fxsjy/jieba</a>.
+</div>
+<div id="ref-oecd2023pisa" class="csl-entry" role="listitem">
+OECD. 2023. <span>“PISA 2022 Assessment and Analytical Framework.”</span> Organisation for Economic Co-operation; Development. <a href="https://www.oecd.org/content/dam/oecd/en/publications/reports/2023/08/pisa-2022-assessment-and-analytical-framework_a124aec8/dfe0bf9c-en.pdf">https://www.oecd.org/content/dam/oecd/en/publications/reports/2023/08/pisa-2022-assessment-and-analytical-framework_a124aec8/dfe0bf9c-en.pdf</a>.
+</div>
+<div id="ref-oecd2024screen" class="csl-entry" role="listitem">
+———. 2024. <span>“Managing Screen Time: PISA 2022 Results.”</span> Organisation for Economic Co-operation; Development. <a href="https://www.oecd.org/content/dam/oecd/en/publications/reports/2024/05/managing-screen-time_023f2390/7c225af4-en.pdf">https://www.oecd.org/content/dam/oecd/en/publications/reports/2024/05/managing-screen-time_023f2390/7c225af4-en.pdf</a>.
+</div>
+<div id="ref-RAGAN201478" class="csl-entry" role="listitem">
+Ragan, Eric D., Samuel R. Jennings, John D. Massey, and Peter E. Doolittle. 2014. <span>“Unregulated Use of Laptops over Time in Large Lecture Classes.”</span> <em>Computers &amp; Education</em> 78: 78–86. https://doi.org/<a href="https://doi.org/10.1016/j.compedu.2014.05.002">https://doi.org/10.1016/j.compedu.2014.05.002</a>.
+</div>
+<div id="ref-iza2018students" class="csl-entry" role="listitem">
+<span>“Student Device Usage Patterns.”</span> 2018. 11455. Institute for Labor Economics. <a href="https://docs.iza.org/dp11455.pdf">https://docs.iza.org/dp11455.pdf</a>.
+</div>
+<div id="ref-unesco2023gem" class="csl-entry" role="listitem">
+UNESCO. 2023. <span>“Global Education Monitoring Report 2023: Technology in Education: A Tool on Whose Terms?”</span> UNESCO. <a href="https://www.unesco.org/gem-report/sites/default/files/medias/fichiers/2023/07/Summary_v5.pdf">https://www.unesco.org/gem-report/sites/default/files/medias/fichiers/2023/07/Summary_v5.pdf</a>.
+</div>
+<div id="ref-Ward2017" class="csl-entry" role="listitem">
+Ward, Adrian F., Kristen Duke, Ayelet Gneezy, and Maarten W. Bos. 2017. <span>“Brain Drain: The Mere Presence of One’s Own Smartphone Reduces Available Cognitive Capacity.”</span> <em>Journal of the Association for Consumer Research</em> 2 (2): 140–54. <a href="https://doi.org/10.1086/691462">https://doi.org/10.1086/691462</a>.
+</div>
+</div>
 </section></section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
